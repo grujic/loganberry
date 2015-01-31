@@ -66,7 +66,7 @@ class ExchangeConnection:
             "size": size \
         }
 
-        #resp = self._send_and_receive(json_struct)
+        self._send(json_struct)
 
         return self.next_order_id
 
@@ -120,6 +120,11 @@ class ExchangeConnection:
         elif line_type == "":
             # One of our orders has been filled
             pass
+
+        elif line_type == "trade":
+            ticker = parsed_json["symbol"]
+            price = parsed_json["price"]
+            size = parsed_json["size"]
 
         else:
             logger.error("Don't know how to process type = " + parsed_json['type'])
