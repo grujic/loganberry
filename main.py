@@ -41,7 +41,6 @@ conn.sayHello()
 
 for x in xrange(10):
     print 'Iteration {}'.format(x)
-    sleep(1)
     conn.update()
 
     if x == 1:
