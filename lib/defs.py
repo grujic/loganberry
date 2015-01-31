@@ -6,6 +6,7 @@ from logging import handlers
 from lib.book import Book
 from strategies.quotes_class import Quotes
 
+# Set up logging: (this uses old-style formatting)
 formatStr = '[%(asctime)s]  %(levelname)-7s (%(filename)s:%(lineno)d) %(funcName)s - %(message)s'
 dateFmtStr = '%d %b %H:%M:%S'
 #logging.basicConfig(format=formatStr, 
@@ -17,35 +18,40 @@ logger.setLevel(logging.DEBUG)
 
 # create console handler and set level to debug
 #ch = logging.FileHandler('test.log')
-#ch = logging.StreamHandler()
-#ch.setLevel(logging.DEBUG)
-#formatter = logging.Formatter(formatStr,
-                              #dateFmtStr)  # create formatter
-#ch.setFormatter(formatter)                # add formatter to ch
+ch = logging.StreamHandler()
+ch.setLevel(logging.DEBUG)
+formatter = logging.Formatter(formatStr,
+                              dateFmtStr)  # create formatter
+ch.setFormatter(formatter)                # add formatter to ch
+#logger.addHandler(ch)                     # add ch to logger
 
-#fh = handlers.TimedRotatingFileHandler('main.log',
-                                                #when='midnight',
-                                                #backupCount=7)
-#fh.setLevel(logging.INFO)
-#fh.setFormatter(formatter)                # add formatter to ch
+# Add a file logger:
+fh = logging.handlers.TimedRotatingFileHandler('main.log',
+                                                when='midnight',
+                                                backupCount=7)
+fh.setLevel(logging.DEBUG)
+fh.setFormatter(formatter)                # add formatter to ch
+#logger.addHandler(fh)                     # add ch to logger
 
-#rootlogger = logging.getLogger()
-#rootlogger.addHandler(ch)
-#rootlogger.addHandler(fh)
+# Add root logger to both handlers: get all messages to console AND file.
+rootlogger = logging.getLogger()
+rootlogger.addHandler(ch)
+rootlogger.addHandler(fh)
 
 
 class ExchangeConnection:
     # Main class for interacting with the exchange
 
-    def __init__(self, host='10.0.129.254', port=25000):
+    def __init__(self, host='10.0.129.254', port=25000, start_immediately=True):
         self.host = host
         self.port = port
-        self.s = self._startConnection()
+        if start_immediately:
+            self.s = self._startConnection()
         self.book = Book()
         self.quotes = Quotes()
         self.next_order_id = 0
         
-        logging.debug('Starting up.')
+        logger.debug('Starting up.')
 
     def addOrder(self, stock_ticker, dir, price, size):
         self.next_order_id += 1
@@ -61,8 +67,6 @@ class ExchangeConnection:
         }
 
         #resp = self._send_and_receive(json_struct)
-
-        #print(resp)
 
         return self.next_order_id
 
@@ -84,7 +88,7 @@ class ExchangeConnection:
     def update(self):
         # Receives data from network stream, updates
         # linked Book class instance.
-        logging.debug('Enter.')
+        logger.debug('Enter.')
         lines = self._readlines(lines_to_read=10)
         
         for line in lines:
@@ -98,7 +102,7 @@ class ExchangeConnection:
         try:
             parsed_json = json.loads(line)
         except:
-            print("Incomplete line!\n\n")
+            logger.error('Incomplete line!')
             return
 
 
@@ -106,18 +110,17 @@ class ExchangeConnection:
         if parsed_json['type'] == "book":
 
             ticker = parsed_json['symbol']
-            buy_sell_data = {'sell': parsed_json['sell'], 'buy': parsed_json
-['buy']}
+            buy_sell_data = {'sell': parsed_json['sell'], 'buy': parsed_json['buy']}
 
-            print("buy_sell_data for ticker " + ticker + " = ")
-            print(buy_sell_data)
+            logger.info("buy_sell_data for ticker " + ticker + " = ")
+            logger.info(str(buy_sell_data))
 
             self.book.update_ticker_data(ticker, buy_sell_data)
 
         else if 
 
         else:
-            print("Don't know how to process type = " + parsed_json['type'])
+            logger.error("Don't know how to process type = " + parsed_json['type'])
 
     ### Lower level communications ###
     def _fromJSON(self, json_struct):
