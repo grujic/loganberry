@@ -11,12 +11,15 @@ class ExchangeConnection:
 		self.port = port
 		self.s = self._startConnection()
 		self.book = Book()
+		self.next_order_id = 0
 	
-	def addOrder(self, stock_ticker, order_id, dir, price, size):
+	def addOrder(self, stock_ticker, dir, price, size):
+		self.next_order_id += 1
+
 		# Add an order
 		json_struct = { \
 			"type": "add", \
-			"order_id": order_id, \
+			"order_id": self.next_order_id, \
 			"symbol": stock_ticker, \
 			"dir": dir, \
 			"price": price, \
@@ -27,7 +30,7 @@ class ExchangeConnection:
 
 		print(resp)
 
-		return resp
+		return self.next_order_id
 
 	def convertOrder(self):
 		# Convert an ETH to its components
