@@ -82,7 +82,7 @@ class Book:
 
         sell_data = self.get_ticker_sell_data(ticker)
         
-        print sell_data
+        #print sell_data
 
         if len(sell_data) == 0:
         	return 99999999
@@ -111,7 +111,7 @@ class Book:
 
         buy_data = self.get_ticker_buy_data(ticker)
         
-        print buy_data
+        #print buy_data
 
         if len(buy_data) == 0:
         	return 0
@@ -124,7 +124,7 @@ class Book:
                 vwap += need_to_sell * price
                 need_to_sell = 0
             else:
-                vwap += size * price / shares
+                vwap += (size * price / shares)
                 need_to_sell = need_to_sell - size
 
         if(need_to_sell > 0):
