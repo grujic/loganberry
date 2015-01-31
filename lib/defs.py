@@ -119,7 +119,8 @@ class ExchangeConnection:
 
         elif line_type == "fill":
             # One of our orders has been filled
-            pass
+            logger.error("A FILL LINE")
+            logger.error(line)
 
         elif line_type == "trade":
             ticker = parsed_json["symbol"]
@@ -129,7 +130,7 @@ class ExchangeConnection:
         else:
             logger.error("Don't know how to process type = " + parsed_json['type'])
             logger.error(line)
-            
+
     ### Lower level communications ###
     def _fromJSON(self, json_struct):
         return json.dumps(json_struct) + '\n'
