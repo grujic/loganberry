@@ -15,7 +15,7 @@ class Bank:
 	def update(self, ticker, price, size, direction):
 		if (direction == "BUY"):
 			dir_integer = 1
-		else
+		else:
 			dir_integer = -1
 		
 		cash += dir_integer * size * price
