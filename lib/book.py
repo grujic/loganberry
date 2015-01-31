@@ -39,3 +39,15 @@ class Book:
 
 	def get_best_sell_quote(self, ticker):
 		return sorted(self.get_ticker_sell_data(ticker), key = lambda x: x[0])[-1]
+
+	def nth_buy_price(self, ticker, n):
+		pass
+
+	def nth_sell_price(self, ticker, n):
+        pass
+
+    def mean_buy_volume(self, ticker):
+        pass
+
+    def mean_sell_volume(self, ticker):
+        pass
