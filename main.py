@@ -1,5 +1,6 @@
 # Basic imports
 import sys
+from time import sleep
 
 # Our imports
 from lib.defs import ExchangeConnection
