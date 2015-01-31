@@ -29,6 +29,7 @@ class Bank:
 		self.positions[ticker] += dir_integer * size
 
 	def print_portfolio(self):
-		print "Portfolio value: " + str(self.cash)
+		print "Portfolio value: " + str(self.cash) + "\n\n"
 		print self.positions
+		print("Prices: '\n\n")
 		print self.prices
