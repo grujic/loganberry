@@ -14,7 +14,7 @@ if [ $# == 1 ]; then
     TIME_WHILE_OPEN=$1;  # in seconds
 fi    
 
-echo 'Stopping and resetting ALL test markets...'
+echo 'eth0: Stopping and resetting ALL test markets...'
 eth0 close-market 10.0.129.254:47000
 eth0 close-market 10.0.129.254:47001
 eth0 close-market 10.0.129.254:47002
@@ -24,19 +24,20 @@ eth0 reset-positions 10.0.129.254:47002 LOGANBERRY
 rm main.log
 sleep 1
 
-echo 'Running main.py...'
+echo 'eth0: Running main.py...'
 python main.py 10.0.129.254 $IDX &
 
 echo "Starting in 2..."
 sleep 1
 echo "Starting in 1..."
 sleep 1
-echo 'Opening the market...'
+echo 'eth0: Opening the market...'
 eth0 open-market 10.0.129.254:47000
 eth0 open-market 10.0.129.254:47001
 eth0 open-market 10.0.129.254:47002
 
 sleep $TIME_WHILE_OPEN
+echo "eth0: Closing the markets."
 eth0 close-market 10.0.129.254:47000
 eth0 close-market 10.0.129.254:47001
 eth0 close-market 10.0.129.254:47002
