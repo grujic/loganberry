@@ -75,14 +75,14 @@ class Book:
             return 0
 
     def get_vwap_sell_price(self, ticker, shares):
-        print ticker + ":"
+        #print ticker + ":"
 
         vwap = 0
         need_to_buy = shares
 
         sell_data = self.get_ticker_sell_data(ticker)
         
-        print sell_data
+        #print sell_data
 
         if len(sell_data) == 0:
         	return 99999999
@@ -104,14 +104,14 @@ class Book:
         	return vwap
 
     def get_vwap_buy_price(self, ticker, shares):
-        print ticker + ":"
+        #print ticker + ":"
 
         vwap = 0
         need_to_sell = shares
 
         buy_data = self.get_ticker_buy_data(ticker)
         
-        print buy_data
+        #print buy_data
 
         if len(buy_data) == 0:
         	return 0

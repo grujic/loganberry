@@ -74,7 +74,7 @@ while True:
         #sell_everything_at_best_bid(conn)
 
     arbitrage_CORGE(conn)
-    #refresh_quotes(conn)
+    refresh_quotes(conn)
 
     print "Current quotes are: "
     print conn.quotes.printQuotes()
