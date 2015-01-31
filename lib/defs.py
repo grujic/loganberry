@@ -1,4 +1,4 @@
-i#mport socket
+import socket
 import json
 import logging
 from logging import handlers
@@ -15,12 +15,12 @@ dateFmtStr = '%d %b %H:%M:%S'
                     #level=logging.INFO)
 # create logger
 logger = logging.getLogger('loganberry')
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 
 # create console handler and set level to debug
 #ch = logging.FileHandler('test.log')
 ch = logging.StreamHandler()
-ch.setLevel(logging.DEBUG)
+ch.setLevel(logging.INFO)
 formatter = logging.Formatter(formatStr,
                               dateFmtStr)  # create formatter
 ch.setFormatter(formatter)                # add formatter to ch
@@ -40,7 +40,7 @@ rootlogger.addHandler(ch)
 rootlogger.addHandler(fh)
 
 
-c lass ExchangeConnection:
+class ExchangeConnection:
     # Main class for interacting with the exchange
 
     def  __init__(self, host='10.0.129.254', port=25000, start_immediately=True):
@@ -100,8 +100,7 @@ c lass ExchangeConnection:
     def parse(self, line):
         # Workhorse function to parse lines returned
         # from server.
-        print 'Parsing line: '
-        print line
+        logger.debug('Parsing: ' + line)
         try:
             parsed_json = json.loads(line)
         except:
@@ -115,8 +114,8 @@ c lass ExchangeConnection:
             ticker = parsed_json['symbol']
             buy_sell_data = {'sell': parsed_json['sell'], 'buy': parsed_json['buy']}
 
-            logger.info("buy_sell_data for ticker " + ticker + " = ")
-            logger.info(str(buy_sell_data))
+            logger.debug("buy_sell_data for ticker " + ticker + " = ")
+            logger.debug(str(buy_sell_data))
 
             self.book.update_ticker_data(ticker, buy_sell_data)
 
@@ -180,7 +179,7 @@ c lass ExchangeConnection:
         # Returns a JSON struct of the response
         if (False):
             # If socket is dead, get a new connection
-            print("Socket is dead, reconnecting! \n\n")
+            logger.error("Socket is dead, reconnecting! \n\n")
             self.s = self._startConnection()
 
         # Check if json_packet is already of type string:
@@ -196,7 +195,7 @@ c lass ExchangeConnection:
         return resp
 
 
-     def _readlines(self, recv_buffer=4096, delim='\n', lines_to_read=10):
+    def _readlines(self, recv_buffer=4096, delim='\n', lines_to_read=10):
         # Reads the buffer and returns *at least* line_to_read
         buffer = self._carry_over
         data = True
@@ -219,5 +218,5 @@ c lass ExchangeConnection:
         return
 
 
-     def _close_connection(self):
+    def _close_connection(self):
         self.s.close()
