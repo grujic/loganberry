@@ -21,6 +21,16 @@ formatter = logging.Formatter(formatStr,
                               dateFmtStr)  # create formatter
 ch.setFormatter(formatter)                # add formatter to ch
 
+fh = logging.handlers.TimedRotatingFileHandler('main.log',
+                                                when='midnight',
+                                                backupCount=7)
+fh.setLevel(logging.INFO)
+fh.setFormatter(formatter)                # add formatter to ch
+
+rootlogger = logging.getLogger()
+rootlogger.addHandler(ch)
+rootlogger.addHandler(fh)
+
 
 class ExchangeConnection:
     # Main class for interacting with the exchange
