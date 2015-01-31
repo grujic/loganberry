@@ -31,8 +31,7 @@ class ExchangeConnection:
         }
 
         resp = self._send_and_receive(json_struct)
-
-        print(resp)
+        logging.debug('resp: ' + resp)
 
         return resp
 
