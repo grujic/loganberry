@@ -76,7 +76,7 @@ class ExchangeConnection:
 
         return self.next_order_id
 
-    def convertOrder(self):
+    def convertOrder(self, stock_ticker, dir, size):
         # Convert an ETH to its components
         self.next_order_id +=1
         
@@ -93,7 +93,7 @@ class ExchangeConnection:
         
         return self.next_order_id
 
-    def cancelOrder(self):
+    def cancelOrder(self, order_id):
         # Cancel an order
         
         json_struct = {
