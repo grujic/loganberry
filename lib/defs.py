@@ -1,6 +1,8 @@
 import socket
 import json
 
+from lib.book import Book
+
 class ExchangeConnection:
 	# Main class for interacting with the exchange
 
@@ -8,6 +10,7 @@ class ExchangeConnection:
 		self.host = host
 		self.port = port
 		self.s = self._startConnection()
+		self.book = Book()
 	
 	def addOrder(self, stock_ticker, order_id, dir, price, size):
 		# Add an order
@@ -54,7 +57,19 @@ class ExchangeConnection:
                 # from server.
                 print 'Parsing line: '
                 print line
-                
+                try:
+                	parsed_json = json.loads(line)
+                except:
+                	print("Incomplete line!\n\n")
+                	return
+
+                if parsed_json['type'] == "book":
+
+                	ticker = parsed_json['symbol']
+                	self.book.update_ticker_data(ticker, {'sell': parsed_json['sell'], 'buy': parsed_json
+['buy']})
+                else:
+                	print("Don't know how to process type = " + parsed_json['type'])
 
 	### Lower level communications ###
 	def _fromJSON(self, json_struct):
