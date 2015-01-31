@@ -12,13 +12,13 @@ dateFmtStr = '%d %b %H:%M:%S'
                     #datefmt='%d %b %H:%M:%S', 
                     #level=logging.INFO)
 # create logger
-logger = logging.getLogger('upsilon2')
-logger.setLevel(logging.INFO)
+logger = logging.getLogger('loganberry')
+logger.setLevel(logging.DEBUG)
 
 # create console handler and set level to debug
 #ch = logging.FileHandler('test.log')
 ch = logging.StreamHandler()
-ch.setLevel(logging.INFO)
+ch.setLevel(logging.DEBUG)
 formatter = logging.Formatter(formatStr,
                               dateFmtStr)  # create formatter
 ch.setFormatter(formatter)                # add formatter to ch
@@ -28,13 +28,9 @@ ch.setFormatter(formatter)                # add formatter to ch
 fh = logging.handlers.TimedRotatingFileHandler('main.log',
                                                 when='midnight',
                                                 backupCount=7)
-fh.setLevel(logging.INFO)
+fh.setLevel(logging.DEBUG)
 fh.setFormatter(formatter)                # add formatter to ch
 #logger.addHandler(fh)                     # add ch to logger
-
-apslogger = logging.getLogger("apscheduler")
-apslogger.setLevel(logging.WARNING)
-#apslogger.addHandler(ch)
 
 # Add root logger to both handlers: get all messages to console AND file.
 rootlogger = logging.getLogger()
@@ -70,8 +66,6 @@ class ExchangeConnection:
 
         #resp = self._send_and_receive(json_struct)
 
-        #print(resp)
-
         return self.next_order_id
 
     def convertOrder(self):
@@ -92,7 +86,7 @@ class ExchangeConnection:
     def update(self):
         # Receives data from network stream, updates
         # linked Book class instance.
-        logging.debug('Enter.')
+        logger.debug('Enter.')
         lines = self._readlines(lines_to_read=10)
         
         for line in lines:
@@ -106,22 +100,21 @@ class ExchangeConnection:
         try:
             parsed_json = json.loads(line)
         except:
-            print("Incomplete line!\n\n")
+            logger.error('Incomplete line!')
             return
 
         if parsed_json['type'] == "book":
 
             ticker = parsed_json['symbol']
-            buy_sell_data = {'sell': parsed_json['sell'], 'buy': parsed_json
-['buy']}
+            buy_sell_data = {'sell': parsed_json['sell'], 'buy': parsed_json['buy']}
 
-            print("buy_sell_data for ticker " + ticker + " = ")
-            print(buy_sell_data)
+            logger.info("buy_sell_data for ticker " + ticker + " = ")
+            logger.info(str(buy_sell_data))
 
             self.book.update_ticker_data(ticker, buy_sell_data)
 
         else:
-            print("Don't know how to process type = " + parsed_json['type'])
+            logger.error("Don't know how to process type = " + parsed_json['type'])
 
     ### Lower level communications ###
     def _fromJSON(self, json_struct):
