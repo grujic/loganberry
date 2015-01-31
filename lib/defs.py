@@ -119,6 +119,15 @@ class ExchangeConnection:
 
             self.book.update_ticker_data(ticker, buy_sell_data)
 
+        elif line_type == "hello":
+            # initial data which gets sent through
+            cash = parsed_json["cash"]
+            self.bank.cash = cash
+            market_open = parsed_json["market_open"]
+            positions = parsed_json["symbols"]
+            # positions is a list of {"symbol": "FOO", "position": 400}
+            self.bank.positions = {el['symbol']: el['position'] for el in positions}
+
         elif line_type == "fill":
             # One of our orders has been filled
             order_id = parsed_json["order_id"]
