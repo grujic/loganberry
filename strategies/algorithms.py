@@ -15,9 +15,9 @@ def buy_everything_at_best_ask(conn):
 		print "Best sell quote for " + ticker + " is " + str(best_sell_quote)
 		print conn.book.get_ticker_sell_data(ticker)
 
-		order_id = conn.addOrder(ticker, "BUY", best_sell_quote[0], size)
+		order_id = conn.addOrder(ticker, "BUY", 0.9 * best_sell_quote[0], size)
 
-		quote_record = Quote(ticker, "BUY", "Alpha", best_sell_quote[0], size, order_id)
+		quote_record = Quote(ticker, "BUY", "Alpha", 0.9 * best_sell_quote[0], size, order_id)
 		conn.quotes.addQuote(quote_record)
 
 
@@ -33,7 +33,7 @@ def sell_everything_at_best_bid(conn):
 		print "Best sell quote for " + ticker + " is " + str(best_buy_quote)
 		print conn.book.get_ticker_buy_data(ticker)
 
-		order_id = conn.addOrder(ticker, "SELL", best_buy_quote[0], size)
+		order_id = conn.addOrder(ticker, "SELL", 1.1 * best_buy_quote[0], size)
 
-		quote_record = Quote(ticker, "SELL", "Alpha", best_buy_quote[0], size, order_id)
+		quote_record = Quote(ticker, "SELL", "Alpha", 1.1 * best_buy_quote[0], size, order_id)
 		conn.quotes.addQuote(quote_record)
