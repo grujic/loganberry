@@ -46,9 +46,9 @@ def sell_everything_at_best_bid(conn):
 def arbitrage_CORGE(conn):
 	print "Running arbitrage_CORGE() function"
 
-	multiplier = 1
+	multiplier = 10000
 
-	for num_shares in xrange (multiplier, 0, -100):
+	for num_shares in xrange (multiplier, 100, -100):
 
 		corge_avg_price = conn.book.get_vwap_buy_price("CORGE", multiplier)
 		foo_avg_price = conn.book.get_vwap_sell_price("FOO", multiplier)
