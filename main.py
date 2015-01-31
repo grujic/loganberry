@@ -3,6 +3,10 @@ import sys
 
 # Our imports
 from lib.defs import ExchangeConnection
+from strategies.bank_class import Bank
+from strategies.quotes_class import Quotes
+from strategies.algorithms import buy_algo
+from lib.book import Book
 
 PUBLIC_EXCHANGE_PUBLIC_IP = "54.154.191.94"
 PUBLIC_EXCHANGE_PUBLIC_IP = "10.0.129.254"
@@ -20,3 +24,11 @@ print("port index = " + port_index + "\n\n")
 conn = ExchangeConnection(PUBLIC_EXCHANGE_PUBLIC_IP)
 
 conn.sayHello()
+
+quotes = Quotes()
+bank = Bank()
+book = Book()
+
+book.update_ticker_data("FOO", {'buy': [[3367,100],[3359,100],[3355,300],[3349,300],[3348,100],[3347,100],[3344,300],[3343,100],[3338,200],[3335,100],[3318,200],[3313,200]], 'sell': [[3367,100],[3359,100],[3355,300],[3349,300],[3348,100],[3347,100],[3344,300],[3343,100],[3338,200],[3335,100],[3318,200],[3313,200]]})
+
+buy_algo(conn, bank, book, quotes)
