@@ -11,7 +11,7 @@ def buy_algo(conn, bank, book, quotes):
 
 	buy_orders = sorted(book_data["buy"], key=lambda x: x[1], reverse=True)
 
-	print "Foo is available at " + buy_orders[0][0] + ". " + buy_orders[0][1] + " shares."
+	print "Foo is available at " + 'buy_orders[0][0]' + ". " + 'buy_orders[0][1]' + " shares."
 
 	
 	# if(false):
