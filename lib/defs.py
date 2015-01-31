@@ -40,7 +40,7 @@ rootlogger.addHandler(ch)
 rootlogger.addHandler(fh)
 
 
-c lass ExchangeConnection:
+class ExchangeConnection:
     # Main class for interacting with the exchange
 
     def  __init__(self, host='10.0.129.254', port=25000, start_immediately=True):
