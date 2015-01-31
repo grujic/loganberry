@@ -43,7 +43,6 @@ class ExchangeConnection:
         
         logging.debug('Starting up.')
 
-
 	def addOrder(self, stock_ticker, dir, price, size):
 		self.next_order_id += 1
 
