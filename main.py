@@ -18,3 +18,5 @@ print("port index = " + port_index + "\n\n")
 
 ### Instantiate connection to the exchange ###
 conn = ExchangeConnection(PUBLIC_EXCHANGE_PUBLIC_IP)
+
+conn.sayHello()
