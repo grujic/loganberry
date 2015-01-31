@@ -38,6 +38,7 @@ print("port index = " + str(args.port_index) + "\n\n")
 
 
 while True:
+    print 'Entering loop'
     conn = ExchangeConnection(args.exchange_host, 25000 + int(args.port_index))
     conn.sayHello()
     conn.update()
