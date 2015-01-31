@@ -31,6 +31,7 @@ def refresh_quotes(conn):
             if ( q_id > 0 ):
                 # Cancel quote
                 conn.quotes.removeQuote( q_id )
+                conn.cancel(q_id)
 
             # Set new quote
             price = lead + 1
@@ -47,6 +48,7 @@ def refresh_quotes(conn):
             if ( q_id > 0 ):
                 # Cancel quote
                 conn.quotes.removeQuote( q_id )
+                conn.cancel(q_id)
 
             # Set new quote
             price = int( 0.5 * (lead + mid) )
@@ -63,6 +65,7 @@ def refresh_quotes(conn):
             if ( q_id > 0 ):
                 # Cancel quote
                 conn.quotes.removeQuote( q_id )
+                conn.cancel(q_id)
 
             # Set new quote
             price = int( 0.5 * (tail + mid) )
@@ -88,6 +91,7 @@ def refresh_quotes(conn):
             if ( q_id > 0 ):
                 # Cancel quote
                 conn.quotes.removeQuote( q_id )
+                conn.cancel(q_id)
 
             # Set new quote
             price = lead - 1
@@ -104,6 +108,7 @@ def refresh_quotes(conn):
             if ( q_id > 0 ):
                 # Cancel quote
                 conn.quotes.removeQuote( q_id )
+                conn.cancel(q_id)
 
             # Set new quote
             price = int( 0.5 * (lead + mid) )
@@ -120,6 +125,7 @@ def refresh_quotes(conn):
             if ( q_id > 0 ):
                 # Cancel quote
                 conn.quotes.removeQuote( q_id )
+                conn.cancel(q_id)
 
             # Set new quote
             price = int( 0.5 * (tail + mid) )
