@@ -54,7 +54,7 @@ while True:
         continue
     elif conn.market_open is False and market_has_opened is True:
         print "Market has now closed."
-        break    
+        return    
     
     market_has_opened = True
     
