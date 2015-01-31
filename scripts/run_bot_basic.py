@@ -1,6 +1,6 @@
 from lib import defs
 
-ec = defs.ExchangeConnection()
+ec = defs.ExchangeConnection(port=25001)
 ec.sayHello()
 
 for x in xrange(10):
