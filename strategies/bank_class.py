@@ -18,7 +18,7 @@ class Bank:
 		else:
 			dir_integer = -1
 		
-		cash += dir_integer * size * price
+		self.cash += dir_integer * size * price
 		vwap = ( self.prices[ticker] * self.positions[ticker] + dir_integer * size * price ) / (self.positions[ticker] + dir_integer * size)
 
 		self.prices[ticker] = vwap
