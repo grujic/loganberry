@@ -5,6 +5,7 @@ from logging import handlers
 
 from lib.book import Book
 from strategies.quotes_class import Quotes
+from strategies.bank_class import Bank
 
 # Set up logging: (this uses old-style formatting)
 formatStr = '[%(asctime)s]  %(levelname)-7s (%(filename)s:%(lineno)d) %(funcName)s - %(message)s'
@@ -48,6 +49,7 @@ c lass ExchangeConnection:
         if start_immediately:
             self.s = self._startConnection()
         self.book = Book()
+        self.bank = Bank()
         self.quotes = Quotes()
         self.next_order_id = 0
         self._carry_over = ''   # for carrying over network socket buffet
