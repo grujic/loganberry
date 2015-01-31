@@ -71,7 +71,7 @@ def arbitrage_CORGE(conn):
 			conn.quotes.addQuote(quote_record)
 
 			#Convert Corge:
-			conn.convertCorge("CORGE", "BUY", multiplier)
+			conn.convertOrder("CORGE", "BUY", multiplier)
 
 
 		corge_buy_price = multiplier * conn.book.get_vwap_sell_price("CORGE", multiplier)
@@ -95,4 +95,4 @@ def arbitrage_CORGE(conn):
 			conn.quotes.addQuote(quote_record)
 
 			#Convert Corge:
-			conn.convertCorge("CORGE", "SELL", multiplier)
+			conn.convertOrder("CORGE", "SELL", multiplier)
