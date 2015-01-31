@@ -6,7 +6,7 @@ TIME_BEFORE_STOP=10
 
 echo 'Stopping and resetting markets...'
 eth0 close-market 10.0.129.254:${IDX+47000}
-eth0 reset-positions 10.0.129.254:${IDX+47000}
+eth0 reset-positions 10.0.129.254:${IDX+47000} LOGANBERRY
 sleep 5
 
 echo 'Opening the market...'
