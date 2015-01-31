@@ -5,12 +5,15 @@ from lib.defs import ExchangeConnection
 
 
 def buy_algo(conn, bank, book, quotes):
-
+	print "buy algo function ran"
+	
 	book_data = book.get_ticker_data("FOO")
 
-	print book_data
+	buy_orders = sorted(book_data["buy"], key=lambda x: x[1], reverse=True)
 
+	print "Foo is available at " + 'buy_orders[0][0]' + ". " + 'buy_orders[0][1]' + " shares."
 
+	
 	# if(false):
 	# 	test_direction = "BUY"
 	# 	test_quote_type = "Beta"
