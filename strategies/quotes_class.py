@@ -7,7 +7,10 @@ class Quote:
 		self.quote_type = quote_type
 		self.size = size
 		self.price = price
-		self.quote_id = quote_id 
+		self.quote_id = quote_id
+
+	def printQuote(self):
+		print self.ticker + " | " + self.direction + " | " + self.quote_type + " | " + self.size + " | " + self.price + " | " + self.quote_id
 
 
 class Quotes:
@@ -27,7 +30,9 @@ class Quotes:
 		pass
 
 	def printQuotes(self):
+		print " Ticker | Direction | Quote Type | Size | Price | Quote ID "
+
 		for quote in self.quotes:
-			print quote
+			quote.printQuote()
 
 
