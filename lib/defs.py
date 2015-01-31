@@ -4,7 +4,7 @@ import json
 from lib.book import Book
 
 import logging
-logging.basicConfig(filename='example.log',level=logging.DEBUG)
+logging.basicConfig(level=logging.DEBUG)
 #logger = logging.getLogger('loganberry')
 
 
@@ -31,8 +31,7 @@ class ExchangeConnection:
         }
 
         resp = self._send_and_receive(json_struct)
-
-        print(resp)
+        logging.debug('resp: ' + resp)
 
         return resp
 
