@@ -41,13 +41,13 @@ class Book:
         return sorted(self.get_ticker_sell_data(ticker), key = lambda x: x[0])[0]
 
     def nth_buy_price(self, ticker, n):
-        pass
+        return sorted(self.get_ticker_buy_data(ticker), key = lambda x: x[0])[-n][0]
 
     def nth_sell_price(self, ticker, n):
-        pass
+        return sorted(self.get_ticker_sell_data(ticker), key = lambda x: x[0])[n][0]
 
     def mean_buy_volume(self, ticker):
-        pass
+        self.get_ticker_buy_prices(ticker)
 
     def mean_sell_volume(self, ticker):
         pass

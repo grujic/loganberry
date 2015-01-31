@@ -122,6 +122,9 @@ class ExchangeConnection:
 
             self.book.update_ticker_data(ticker, buy_sell_data)
 
+        elif line_type == "market_open":
+            self.market_open = parsed_json["open"]
+
         elif line_type == "hello":
             # initial data which gets sent through
             cash = parsed_json["cash"]
