@@ -4,7 +4,7 @@ import json
 from lib.book import Book
 
 import logging
-logging.basicConfig(filename='example.log',level=logging.DEBUG)
+logging.basicConfig(level=logging.DEBUG)
 #logger = logging.getLogger('loganberry')
 
 
