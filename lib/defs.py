@@ -49,10 +49,11 @@ class ExchangeConnection:
                 for line in lines:
                         self.parse(line)
                 
-        def parse(self):
+        def parse(self, line):
                 # Workhorse function to parse lines returned
                 # from server.
-                pass
+                print 'Parsing line: '
+                print line
                 
 
 	### Lower level communications ###
