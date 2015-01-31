@@ -25,7 +25,7 @@ rm main.log
 sleep 1
 
 echo 'eth0: Running main.py...'
-python main.py 10.0.129.254 $IDX &
+python main_esteban.py 10.0.129.254 $IDX &
 pid=$!
 
 echo "Starting in 2..."

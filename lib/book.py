@@ -35,22 +35,38 @@ class Book:
         return [el[1] for el in self.data[ticker]['sell']]
 
     def get_best_buy_quote(self, ticker):
-        return sorted(self.get_ticker_buy_data(ticker), key = lambda x: x[0])[-1]
+        buy_data = self.get_ticker_buy_data(ticker)
+        if len(buy_data) ==0 :
+            return -1
+        else:
+            return sorted(buy_data, key = lambda x: x[0])[0]
 
     def get_best_sell_quote(self, ticker):
-        return sorted(self.get_ticker_sell_data(ticker), key = lambda x: x[0])[0]
+        sell_data = self.get_ticker_sell_data(ticker)
+        if len(sell_data) ==0 :
+            return -1
+        else:
+            return sorted(sell_data, key = lambda x: x[0])[0]
 
     def nth_buy_price(self, ticker, n):
-        pass
+        return sorted(self.get_ticker_buy_data(ticker), key = lambda x: x[0])[-n][0]
 
     def nth_sell_price(self, ticker, n):
-        pass
+        return sorted(self.get_ticker_sell_data(ticker), key = lambda x: x[0])[n][0]
 
     def mean_buy_volume(self, ticker):
-        pass
+        sizes = self.get_ticker_buy_volumes(ticker)
+        if len(sizes) > 0:
+            return 1.0*sum(sizes)/len(sizes)
+        else:
+            return 0
 
     def mean_sell_volume(self, ticker):
-        pass
+        sizes = self.get_ticker_sell_volumes(ticker)
+        if len(sizes) > 0:
+            return 1.0*sum(sizes)/len(sizes)
+        else:
+            return 0
 
     def get_vwap_sell_price(self, ticker, shares):
         vwap = 0
@@ -67,20 +83,14 @@ class Book:
         i = 0
 
         for quote in sell_data:
-        	price = quote[0]
-        	size = quote[1]
+            price = quote[0]
+            size = quote[1]
 
-        	if(size >= need_to_buy):
-        		vwap += need_to_buy * price
-        		need_to_buy = 0
-        	else:
-        		vwap += size * price / shares
-        		need_to_buy -= size
+            if(size >= need_to_buy):
+                vwap += need_to_buy * price
+                need_to_buy = 0
+            else:
+                vwap += size * price / shares
+                need_to_buy -= size
 
-        	i++
-
-
-
-
-
-
+            i++

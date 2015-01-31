@@ -76,13 +76,30 @@ class ExchangeConnection:
 
         return self.next_order_id
 
-    def convertOrder(self):
+    def convertOrder(self, stock_ticker, dir, size):
         # Convert an ETH to its components
-        pass
+        self.next_order_id +=1
+        
+        # Add order
+        json_struct = {
+            "type":      "convert",
+            "order_id":  self.next_order_id,
+            "symbol":    stock_ticker,
+            "dir":       dir,
+            "size":      size
+            }
+        
+        self._send(json_struct)
+        
+        return self.next_order_id
 
-    def cancelOrder(self):
+    def cancelOrder(self, order_id):
         # Cancel an order
-        pass
+        
+        json_struct = {
+            "type": "cancel", 
+            "order_id": order_id
+            }
 
     def sayHello(self):
         # Check connection
@@ -121,6 +138,12 @@ class ExchangeConnection:
             logger.debug(str(buy_sell_data))
 
             self.book.update_ticker_data(ticker, buy_sell_data)
+
+        elif line_type == "market_open":
+            self.market_open = parsed_json["open"]
+            
+        elif line_type == "market_closed":
+            self.market_open = parsed_json["open"]
 
         elif line_type == "hello":
             # initial data which gets sent through
