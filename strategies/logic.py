@@ -45,7 +45,7 @@ def refresh_quotes(conn):
             if ( volume > 0 ):
                 new_id = conn.addOrder( ticker, "BUY", price, volume )
                 new_quote = Quote( ticker, "BUY", "Alpha", volume, price, new_id )
-                conn.quotes.addQuote( newQuote )
+                conn.quotes.addQuote( new_quote )
 
         # BETA
         q_id = conn.quotes.getID( ticker, 'BUY', 'Beta' )
@@ -62,7 +62,7 @@ def refresh_quotes(conn):
             if ( volume > 0 ):
                 new_id = conn.addOrder( ticker, "BUY", price, volume )
                 new_quote = Quote( ticker, "BUY", "Beta", volume, price, new_id )
-                conn.quotes.addQuote( newQuote )
+                conn.quotes.addQuote( new_quote )
 
         # GAMMA
         q_id = conn.quotes.getID( ticker, 'BUY', 'Gamma' )
@@ -79,7 +79,7 @@ def refresh_quotes(conn):
             if ( volume > 0 ):
                 new_id = conn.addOrder( ticker, "BUY", price, volume )
                 new_quote = Quote( ticker, "BUY", "Gamma", volume, price, new_id )
-                conn.quotes.addQuote( newQuote )
+                conn.quotes.addQuote( new_quote )
 
         # SELL
         n = conn.book.how_many_sells(ticker)
@@ -109,7 +109,7 @@ def refresh_quotes(conn):
             if ( volume > 0 ):
                 new_id = conn.addOrder( ticker, "SELL", price, volume )
                 new_quote = Quote( ticker, "SELL", "Alpha", volume, price, new_id )
-                conn.quotes.addQuote( newQuote )
+                conn.quotes.addQuote( new_quote )
 
         # BETA
         q_id = conn.quotes.getID( ticker, 'SELL', 'Beta' )
@@ -126,7 +126,7 @@ def refresh_quotes(conn):
             if ( volume > 0 ):
                 new_id = conn.addOrder( ticker, "SELL", price, volume )
                 new_quote = Quote( ticker, "SELL", "Beta", volume, price, new_id )
-                conn.quotes.addQuote( newQuote )
+                conn.quotes.addQuote( new_quote )
 
         # GAMMA
         q_id = conn.quotes.getID( ticker, 'SELL', 'Gamma' )
@@ -143,4 +143,4 @@ def refresh_quotes(conn):
             if ( volume > 0 ):
                 new_id = conn.addOrder( ticker, "SELL", price, volume )
                 new_quote = Quote( ticker, "SELL", "Gamma", volume, price, new_id )
-                conn.quotes.addQuote( newQuote )
+                conn.quotes.addQuote( new_quote )
