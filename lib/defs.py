@@ -72,7 +72,8 @@ class ExchangeConnection:
 		self.s.send(send_str)
 		resp = self.s.recv(1024)
 
-		return json.loads(resp)
+		# TODO want to return actual JSON
+		return resp
 
 	def _close_connection(self):
 		self.s.close()
