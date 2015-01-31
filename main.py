@@ -14,14 +14,15 @@ PUBLIC_EXCHANGE_PUBLIC_IP = "10.0.129.254"
 exchange_host = sys.argv[1]
 port_index = sys.argv[2]
 
-
 ### Read in command line arguments ###
 print("\n\n")
 print("exchange host address = " + exchange_host + "\n\n")
 print("port index = " + port_index + "\n\n")
 
 ### Instantiate connection to the exchange ###
-conn = ExchangeConnection(PUBLIC_EXCHANGE_PUBLIC_IP)
+conn = ExchangeConnection(exchange_host, 25000 + int(port_index))
+
+book = Book()
 
 conn.sayHello()
 
