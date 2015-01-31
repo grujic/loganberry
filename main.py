@@ -44,12 +44,12 @@ for x in xrange(10):
     sleep(1)
     conn.update()
 
-    if x == 0:
+    if x == 1:
         conn.bank.print_portfolio()
         #conn.addOrder('QUUX', 'BUY', 1, 50)
         #conn.addOrder('QUUX', 'BUY', 10000, 50)
         buy_everything_at_best_ask(conn)
-		#sell_everything_at_best_bid(conn)
+        sell_everything_at_best_bid(conn)
 
     if x == 9:
         conn.bank.print_portfolio()
