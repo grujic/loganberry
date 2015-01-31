@@ -117,7 +117,7 @@ class ExchangeConnection:
 
             self.book.update_ticker_data(ticker, buy_sell_data)
 
-        else if line_type == "":
+        elif line_type == "":
             # One of our orders has been filled
             pass
 
