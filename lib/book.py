@@ -34,8 +34,8 @@ class Book:
 	def get_ticker_sell_volumes(self, ticker):
 		return [el[1] for el in self.data[ticker]['sell']]
 
-	def get_best_buy_price(self, ticker):
-		return sorted(book.get_ticker_buy_data(ticker), key = lambda x: x[0])[0][0]
+	def get_best_buy_quote(self, ticker):
+		return sorted(book.get_ticker_buy_data(ticker), key = lambda x: x[0])[0]
 
-	def get_best_sell_price(self, ticker):
-		return sorted(book.get_ticker_sell_data(ticker), key = lambda x: x[0])[-1][0]
+	def get_best_sell_quote(self, ticker):
+		return sorted(book.get_ticker_sell_data(ticker), key = lambda x: x[0])[-1]
