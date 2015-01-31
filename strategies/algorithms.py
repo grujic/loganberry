@@ -7,7 +7,7 @@ from lib.defs import ExchangeConnection
 def buy_algo(conn, bank, book, quotes):
 	print "Running buy algo function"
 
-	best_price = book_data.get_best_buy_price("FOO")
+	best_price = book.get_best_buy_price("FOO")
 	print best_price
 	
 	# if(false):
