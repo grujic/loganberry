@@ -32,7 +32,7 @@ def refresh_quotes(conn):
 
         # ALPHA
         q_id = conn.quotes.getID( ticker, 'BUY', 'Alpha' )
-        q_val = conn.quotes.getValue( q_id ) 
+        q_val = conn.quotes.getPrice( q_id ) 
         if ( q_id == -1 or q_val <= lead - ALPHA_TOLERANCE ):
             if ( q_id > 0 ):
                 # Cancel quote
@@ -49,7 +49,7 @@ def refresh_quotes(conn):
 
         # BETA
         q_id = conn.quotes.getID( ticker, 'BUY', 'Beta' )
-        q_val = conn.quotes.getValue( q_id ) 
+        q_val = conn.quotes.getPrice( q_id ) 
         if ( q_id == -1 or q_val >= lead + BETA_TOLERANCE or q_val <= mid - BETA_TOLERANCE ):
             if ( q_id > 0 ):
                 # Cancel quote
@@ -66,7 +66,7 @@ def refresh_quotes(conn):
 
         # GAMMA
         q_id = conn.quotes.getID( ticker, 'BUY', 'Gamma' )
-        q_val = conn.quotes.getValue( q_id ) 
+        q_val = conn.quotes.getPrice( q_id ) 
         if ( q_id == -1 or q_val >= mid + GAMMA_TOLERANCE or q_val <= tail - GAMMA_TOLERANCE ):
             if ( q_id > 0 ):
                 # Cancel quote
@@ -96,7 +96,7 @@ def refresh_quotes(conn):
 
         # ALPHA
         q_id = conn.quotes.getID( ticker, 'SELL', 'Alpha' )
-        q_val = conn.quotes.getValue( q_id ) 
+        q_val = conn.quotes.getPrice( q_id ) 
         if ( q_id == -1 or q_val >= lead + ALPHA_TOLERANCE ):
             if ( q_id > 0 ):
                 # Cancel quote
@@ -113,7 +113,7 @@ def refresh_quotes(conn):
 
         # BETA
         q_id = conn.quotes.getID( ticker, 'SELL', 'Beta' )
-        q_val = conn.quotes.getValue( q_id ) 
+        q_val = conn.quotes.getPrice( q_id ) 
         if ( q_id == -1 or q_val <= lead + BETA_TOLERANCE or q_val >= mid - BETA_TOLERANCE ):
             if ( q_id > 0 ):
                 # Cancel quote
@@ -130,7 +130,7 @@ def refresh_quotes(conn):
 
         # GAMMA
         q_id = conn.quotes.getID( ticker, 'SELL', 'Gamma' )
-        q_val = conn.quotes.getValue( q_id ) 
+        q_val = conn.quotes.getPrice( q_id ) 
         if ( q_id == -1 or q_val <= mid + GAMMA_TOLERANCE or q_val >= tail - GAMMA_TOLERANCE ):
             if ( q_id > 0 ):
                 # Cancel quote
