@@ -46,7 +46,7 @@ def sell_everything_at_best_bid(conn):
 def arbitrage_CORGE(conn):
 	print "Running arbitrage_CORGE() function"
 
-	multiplier = 200
+	multiplier = 1
 
 	for num_shares in xrange (multiplier, 100, -100):
 
