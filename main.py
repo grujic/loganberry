@@ -73,6 +73,8 @@ while True:
         #buy_everything_at_best_ask(conn)
         #sell_everything_at_best_bid(conn)
 
+    sleep(0.1)
+
     arbitrage_CORGE(conn)
     refresh_quotes(conn)
 
