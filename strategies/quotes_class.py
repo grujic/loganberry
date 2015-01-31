@@ -1,7 +1,7 @@
 class Quote:
 	# Class to keep track of current outstanding quotes
 
-	def __init__(self, ticker, direction, quote_type, size, price, quote_id):
+	def __init__(self, ticker, direction, quote_type, price, size, quote_id):
 		self.ticker = ticker
 		self.direction = direction
 		self.quote_type = quote_type
