@@ -4,7 +4,7 @@ import json
 from lib.book import Book
 
 import logging
-logging.basicConfig(filename='example.log',level=logging.DEBUG)
+logging.basicConfig(level=logging.DEBUG)
 #logger = logging.getLogger('loganberry')
 
 
@@ -59,7 +59,7 @@ class ExchangeConnection:
         
         for line in lines:
             self.parse(line)
-        
+            
     def parse(self, line):
         # Workhorse function to parse lines returned
         # from server.
@@ -76,7 +76,12 @@ class ExchangeConnection:
             ticker = parsed_json['symbol']
             buy_sell_data = {'sell': parsed_json['sell'], 'buy': parsed_json
 ['buy']}
+
+            print("buy_sell_data for ticker " + ticker + " = ")
+            print(buy_sell_data)
+
             self.book.update_ticker_data(ticker, buy_sell_data)
+
         else:
             print("Don't know how to process type = " + parsed_json['type'])
 
