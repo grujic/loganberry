@@ -19,5 +19,4 @@ s.send(send_str)
 resp = s.recv(1024)
 s.close()
 
-
 print resp
