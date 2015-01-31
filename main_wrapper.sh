@@ -18,7 +18,13 @@ sleep 2
 echo 'Running main2.py...'
 python main2.py 10.0.129.254 $IDX &
 
-sleep $TIME_UNTIL_START
+sleep ${TIME_UNTIL_START-1}
+echo "Starting in 3..."
+sleep 1
+echo "Starting in 2..."
+sleep 1
+echo "Starting in 1..."
+sleep 1
 echo 'Opening the market...'
 eth0 open-market 10.0.129.254:47000
 eth0 open-market 10.0.129.254:47001
