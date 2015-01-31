@@ -9,6 +9,7 @@ from strategies.bank_class import Bank
 from strategies.quotes_class import Quotes
 from strategies.algorithms import buy_everything_at_best_ask
 from strategies.algorithms import sell_everything_at_best_bid
+from strategies.algorithms import arbitrage_CORGE
 from strategies.logic import refresh_quotes
 
 from lib.book import Book
