@@ -48,6 +48,12 @@ class Book:
         else:
             return sorted(sell_data, key = lambda x: x[0])[0]
 
+    def how_many_sells(self, ticker):
+        return len(self.get_ticker_sell_data(ticker))
+
+    def how_many_buys(self, ticker):
+        return len(self.get_ticker_buy_data(ticker))
+
     def nth_buy_price(self, ticker, n):
         return sorted(self.get_ticker_buy_data(ticker), key = lambda x: x[0])[-n][0]
 
