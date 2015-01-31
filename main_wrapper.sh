@@ -20,7 +20,11 @@ python main2.py 10.0.129.254 $IDX &
 
 sleep $TIME_UNTIL_START
 echo 'Opening the market...'
-eth0 open-market 10.0.129.254:${IDX+47000}
+eth0 open-market 10.0.129.254:47000
+eth0 open-market 10.0.129.254:47001
+eth0 open-market 10.0.129.254:47002
 
 sleep $TIME_WHILE_OPEN
-eth0 close-market 10.0.129.254:${IDX+47000}
+eth0 close-market 10.0.129.254:47000
+eth0 close-market 10.0.129.254:47001
+eth0 close-market 10.0.129.254:47002
