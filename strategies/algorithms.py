@@ -86,9 +86,9 @@ def arbitrage_CORGE(conn):
 		foo_avg_price = conn.book.get_vwap_buy_price("FOO", multiplier)
 		bar_avg_price = conn.book.get_vwap_buy_price("BAR", multiplier)
 
-		print "corge_buy_price: " + str(corge_buy_price)
-		print "foo_sell_price: " + str(foo_sell_price)
-		print "bar_sell_price: " + str(bar_sell_price)
+		print "corge_buy_price: " + str(corge_avg_price)
+		print "foo_sell_price: " + str(foo_avg_price)
+		print "bar_sell_price: " + str(bar_avg_price)
 
 		corge_buy_price = multiplier * corge_avg_price
 		foo_sell_price = multiplier * 0.3 * foo_avg_price
