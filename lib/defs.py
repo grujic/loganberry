@@ -4,6 +4,7 @@ import logging
 from logging import handlers
 
 from lib.book import Book
+from strategies.quotes_class import Quotes
 
 # Set up logging: (this uses old-style formatting)
 formatStr = '[%(asctime)s]  %(levelname)-7s (%(filename)s:%(lineno)d) %(funcName)s - %(message)s'
@@ -47,6 +48,7 @@ class ExchangeConnection:
         if start_immediately:
             self.s = self._startConnection()
         self.book = Book()
+        self.quotes = Quotes()
         self.next_order_id = 0
         
         logger.debug('Starting up.')
@@ -103,6 +105,8 @@ class ExchangeConnection:
             logger.error('Incomplete line!')
             return
 
+
+
         if parsed_json['type'] == "book":
 
             ticker = parsed_json['symbol']
@@ -112,6 +116,8 @@ class ExchangeConnection:
             logger.info(str(buy_sell_data))
 
             self.book.update_ticker_data(ticker, buy_sell_data)
+
+        else if 
 
         else:
             logger.error("Don't know how to process type = " + parsed_json['type'])
