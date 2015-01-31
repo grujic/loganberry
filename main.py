@@ -22,8 +22,6 @@ print("port index = " + port_index + "\n\n")
 ### Instantiate connection to the exchange ###
 conn = ExchangeConnection(exchange_host, 25000 + int(port_index))
 
-book = Book()
-
 conn.sayHello()
 
 quotes = Quotes()

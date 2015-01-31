@@ -9,9 +9,11 @@ def buy_algo(conn, bank, book, quotes):
 	
 	book_data = book.get_ticker_data("FOO")
 
-	print book_data
+	buy_orders = sorted(book_data["buy"], key=lambda x: x[1])
 
+	print buy_orders["buy"][0][0]
 
+	
 	# if(false):
 	# 	test_direction = "BUY"
 	# 	test_quote_type = "Beta"
