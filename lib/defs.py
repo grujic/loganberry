@@ -7,7 +7,7 @@ from lib.book import Book
 from strategies.quotes_class import Quotes
 from strategies.bank_class import Bank
 
-level = logging.INFO
+level = logging.DEBUG
 
 # Set up logging: (this uses old-style formatting)
 formatStr = '[%(asctime)s]  %(levelname)-7s (%(filename)s:%(lineno)d) %(funcName)s - %(message)s'
