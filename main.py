@@ -1,5 +1,6 @@
 # Basic imports
 import sys
+import argparse
 
 # Our imports
 from lib.defs import ExchangeConnection
@@ -12,16 +13,28 @@ from lib.book import Book
 PUBLIC_EXCHANGE_PUBLIC_IP = "54.154.191.94"
 PUBLIC_EXCHANGE_PUBLIC_IP = "10.0.129.254"
 
-exchange_host = sys.argv[1]
-port_index = sys.argv[2]
+parser = argparse.ArgumentParser(description='Main script for the loganberry team.')
+parser.add_argument('exchange_host', 
+                    metavar='host',
+                    type=str,
+                    default='10.0.129.254',
+                    help='Host IP, default is 10.0.129.254')
+parser.add_argument('port_index',
+                    metavar='port',
+                    type=int, 
+                    default=25000,
+                    help='Port, default is 25000')
+
+args = parser.parse_args()
+
 
 ### Read in command line arguments ###
 print("\n\n")
-print("exchange host address = " + exchange_host + "\n\n")
-print("port index = " + port_index + "\n\n")
+print("exchange host address = " + args.exchange_host + "\n\n")
+print("port index = " + str(args.port_index) + "\n\n")
 
 ### Instantiate connection to the exchange ###
-conn = ExchangeConnection(exchange_host, 25000 + int(port_index))
+conn = ExchangeConnection(args.exchange_host, 25000 + int(args.port_index))
 
 conn.sayHello()
 
