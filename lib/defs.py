@@ -1,11 +1,25 @@
 import socket
 import json
+import logging
 
 from lib.book import Book
 
-import logging
-logging.basicConfig(level=logging.DEBUG)
-#logger = logging.getLogger('loganberry')
+formatStr = '[%(asctime)s]  %(levelname)-7s (%(filename)s:%(lineno)d) %(funcName)s - %(message)s'
+dateFmtStr = '%d %b %H:%M:%S'
+#logging.basicConfig(format=formatStr, 
+                    #datefmt='%d %b %H:%M:%S', 
+                    #level=logging.INFO)
+# create logger
+logger = logging.getLogger('loganberry')
+logger.setLevel(logging.DEBUG)
+
+# create console handler and set level to debug
+#ch = logging.FileHandler('test.log')
+ch = logging.StreamHandler()
+ch.setLevel(logging.DEBUG)
+formatter = logging.Formatter(formatStr,
+                              dateFmtStr)  # create formatter
+ch.setFormatter(formatter)                # add formatter to ch
 
 
 class ExchangeConnection:
