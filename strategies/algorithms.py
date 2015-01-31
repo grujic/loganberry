@@ -54,9 +54,9 @@ def arbitrage_CORGE(conn):
 		foo_avg_price = conn.book.get_vwap_sell_price("FOO", multiplier)
 		bar_avg_price = conn.book.get_vwap_sell_price("BAR", multiplier)
 
-		print "corge_sell_price: " + str(corge_avg_price)
-		print "foo_buy_price: " + str(foo_avg_price)
-		print "bar_buy_price: " + str(bar_avg_price)
+		#print "corge_sell_price: " + str(corge_avg_price)
+		#print "foo_buy_price: " + str(foo_avg_price)
+		#print "bar_buy_price: " + str(bar_avg_price)
 
 		corge_sell_price = multiplier * corge_avg_price
 		foo_buy_price = multiplier * 0.3 * foo_avg_price
@@ -64,13 +64,13 @@ def arbitrage_CORGE(conn):
 
 		if(corge_sell_price > foo_buy_price + bar_buy_price + 100):
 			#Buy Foo:
-			order_id = conn.addOrder("FOO", "BUY", 9999999, multiplier)
-			quote_record = Quote("FOO", "BUY", "Arb", 9999999, multiplier, order_id)
+			order_id = conn.addOrder("FOO", "BUY", 999999, multiplier)
+			quote_record = Quote("FOO", "BUY", "Arb", 999999, multiplier, order_id)
 			conn.quotes.addQuote(quote_record)
 
 			#Buy Bar:
-			order_id = conn.addOrder("BAR", "BUY", 9999999, multiplier)
-			quote_record = Quote("BAR", "BUY", "Arb", 9999999, multiplier, order_id)
+			order_id = conn.addOrder("BAR", "BUY", 999999, multiplier)
+			quote_record = Quote("BAR", "BUY", "Arb", 999999, multiplier, order_id)
 			conn.quotes.addQuote(quote_record)
 
 			#Sell Corge:
@@ -86,9 +86,9 @@ def arbitrage_CORGE(conn):
 		foo_avg_price = conn.book.get_vwap_buy_price("FOO", multiplier)
 		bar_avg_price = conn.book.get_vwap_buy_price("BAR", multiplier)
 
-		print "corge_buy_price: " + str(corge_avg_price)
-		print "foo_sell_price: " + str(foo_avg_price)
-		print "bar_sell_price: " + str(bar_avg_price)
+		#print "corge_buy_price: " + str(corge_avg_price)
+		#print "foo_sell_price: " + str(foo_avg_price)
+		#print "bar_sell_price: " + str(bar_avg_price)
 
 		corge_buy_price = multiplier * corge_avg_price
 		foo_sell_price = multiplier * 0.3 * foo_avg_price
@@ -106,8 +106,8 @@ def arbitrage_CORGE(conn):
 			conn.quotes.addQuote(quote_record)
 
 			#Buy Corge:
-			order_id = conn.addOrder("CORGE", "BUY", 9999999, multiplier)
-			quote_record = Quote("CORGE", "BUY", "Arb", 9999999, multiplier, order_id)
+			order_id = conn.addOrder("CORGE", "BUY", 999999, multiplier)
+			quote_record = Quote("CORGE", "BUY", "Arb", 999999, multiplier, order_id)
 			conn.quotes.addQuote(quote_record)
 
 			#Convert Corge:
