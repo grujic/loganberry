@@ -2,6 +2,7 @@ import socket
 import json
 
 from lib.book import Book
+from strategies.quotes_class import Quotes
 
 import logging
 logging.basicConfig(level=logging.DEBUG)
@@ -16,6 +17,7 @@ class ExchangeConnection:
         self.port = port
         self.s = self._startConnection()
         self.book = Book()
+        self.quotes = Quotes()
         
         logging.debug('Starting up.')
     
@@ -70,6 +72,8 @@ class ExchangeConnection:
             print("Incomplete line!\n\n")
             return
 
+
+
         if parsed_json['type'] == "book":
 
             ticker = parsed_json['symbol']
@@ -80,6 +84,8 @@ class ExchangeConnection:
             print(buy_sell_data)
 
             self.book.update_ticker_data(ticker, buy_sell_data)
+
+        else if 
 
         else:
             print("Don't know how to process type = " + parsed_json['type'])
