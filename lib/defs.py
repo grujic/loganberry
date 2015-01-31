@@ -3,6 +3,11 @@ import json
 
 from lib.book import Book
 
+import logging
+logging.basicConfig(filename='example.log',level=logging.DEBUG)
+#logger = logging.getLogger('loganberry')
+
+
 class ExchangeConnection:
     # Main class for interacting with the exchange
 
@@ -11,6 +16,8 @@ class ExchangeConnection:
         self.port = port
         self.s = self._startConnection()
         self.book = Book()
+        
+        logging.debug('Starting up.')
     
     def addOrder(self, stock_ticker, order_id, dir, price, size):
         # Add an order
@@ -47,6 +54,7 @@ class ExchangeConnection:
     def update(self):
         # Receives data from network stream, updates
         # linked Book class instance.
+        logging.debug('Enter.')
         lines = self._readlines(lines_to_read=10)
         
         for line in lines:
