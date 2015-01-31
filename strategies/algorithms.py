@@ -48,7 +48,7 @@ def arbitrage_CORGE(conn):
 
 	multiplier = 1
 
-	for num_shares in xrange (multiplier, 100, -100):
+	for num_shares in xrange (multiplier, 0, -100):
 
 		corge_avg_price = conn.book.get_vwap_buy_price("CORGE", multiplier)
 		foo_avg_price = conn.book.get_vwap_sell_price("FOO", multiplier)
