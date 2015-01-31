@@ -40,8 +40,8 @@ def sell_everything_at_best_bid(conn):
 
         order_id = conn.addOrder(ticker, "SELL", 1.1 * best_buy_quote[0], size)
 
-		quote_record = Quote(ticker, "SELL", "Alpha", 1.1 * best_buy_quote[0], size, order_id)
-		conn.quotes.addQuote(quote_record)
+        quote_record = Quote(ticker, "SELL", "Alpha", 1.1 * best_buy_quote[0], size, order_id)
+        conn.quotes.addQuote(quote_record)
 
 def arbitrage_CORGE(conn):
 	print "Running arbitrage_CORGE() function"
