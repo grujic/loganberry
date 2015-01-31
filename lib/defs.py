@@ -4,12 +4,27 @@ import json
 class ExchangeConnection:
 	# Main class for interacting with the exchange
 
-	def __init__(self, exchange_address):
-		self.exchange_address = exchange_address
-
-	def addOrder(self):
+	def __init__(self, host='10.0.129.254', port=25000):
+		self.host = host
+		self.port = port
+		self.s = self._startConnection()
+	
+	def addOrder(self, stock_ticker, order_id, dir, price, size):
 		# Add an order
-		pass
+		json_struct = { \
+			"type": "add", \
+			"order_id": order_id, \
+			"symbol": stock_ticker, \
+			"dir": dir, \
+			"price": price, \
+			"size": size \
+		}
+
+		resp = self._send_and_receive(json_struct)
+
+		print(resp)
+
+		return resp
 
 	def convertOrder(self):
 		# Convert an ETH to its components
@@ -22,18 +37,40 @@ class ExchangeConnection:
 	def sayHello(self):
 		# Check connection
 		### TEMP ###
-		exchange_ip = 'http://10.0.129.254'
 		ehlo = {"type": "hello", "team": "LOGANBERRY"}
 
-		host = '10.0.129.254'
-		port = 25000
+		resp = self._send_and_receive(ehlo)
 
-		send_str = json.dumps(ehlo) + '\n'
+		print resp
 
+		return resp
+
+	### Lower level communications ###
+	def _fromJSON(self, json_struct):
+		return json.dumps(json_struct) + '\n'
+
+	def _startConnection(self):
+		# Open a socket connection
 		s = socket.socket()
-		s.connect((host, port))
+		s.connect((self.host, self.port))
+		return s
+
+	def _send_and_receive(self, json_packet):
+		# General function for sending some JSON
+		# Returns a JSON struct of the response
+		if (False):
+			# If socket is dead, get a new connection
+			print("Socket is dead, reconnecting! \n\n")
+			self.s = self._startConnection()
+
+		# Check if json_packet is already of type string:
+		if type(json_packet) == str:
+			send_str = json_packet
+		else:
+			send_str = self._fromJSON(json_packet)
+
 		s.send(send_str)
 		resp = s.recv(1024)
 		s.close()
 
-		print resp
+		return json.loads(resp)
