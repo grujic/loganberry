@@ -41,6 +41,7 @@ class ExchangeConnection:
         self.port = port
         self.s = self._startConnection()
         self.book = Book()
+        self.next_order_id = 0
         
         logging.debug('Starting up.')
 
