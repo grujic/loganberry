@@ -65,7 +65,7 @@ class ExchangeConnection:
             "order_id": self.next_order_id, \
             "symbol": stock_ticker, \
             "dir": dir, \
-            "price": price, \
+            "price": int(price), \
             "size": size \
         }
 
