@@ -19,10 +19,14 @@ class Bank:
 			dir_integer = -1
 		
 		self.cash += -1 * dir_integer * size * price
-		vwap = ( self.prices[ticker] * self.positions[ticker] + dir_integer * size * price ) / (self.positions[ticker] + dir_integer * size)
+
+		if (self.positions[ticker] + dir_integer * size == 0):
+			vwap = 0
+		else:
+			vwap = ( self.prices[ticker] * self.positions[ticker] + dir_integer * size * price ) / (self.positions[ticker] + dir_integer * size)
 
 		self.prices[ticker] = vwap
-		self.positions[ticker] += size
+		self.positions[ticker] += dir_integer * size
 
 	def print_portfolio(self):
 		print "Portfolio value: " + str(self.cash)

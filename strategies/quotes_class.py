@@ -21,7 +21,7 @@ class Quotes:
         self.quotes.append(quote)
 
     def removeQuote(self, quote_id):
-        self.quotes = [ q for q in self.quotes if q.id != quote_id ]
+        self.quotes = [ q for q in self.quotes if q.quote_id != quote_id ]
 
     def getID(self, ticker, direction, quote_type):
         matches = [ q for q in self.quotes if q.ticker == ticker and q.direction == direction and q.quote_type == quote_type ]
