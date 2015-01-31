@@ -39,7 +39,7 @@ conn = ExchangeConnection(args.exchange_host, 25000 + int(args.port_index))
 
 conn.sayHello()
 
-for x in xrange(1):
+for x in xrange(10):
     print 'Iteration {}'.format(x)
     sleep(1)
     conn.update()
