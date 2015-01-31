@@ -28,6 +28,6 @@ class Quotes:
 
 	def printQuotes(self):
 		for quote in self.quotes:
-			print self.quote
+			print quote
 
 
