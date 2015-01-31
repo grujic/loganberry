@@ -105,10 +105,10 @@ class ExchangeConnection:
             logger.error('Incomplete line!')
             return
 
+        line_type = parsed_json['type']
 
-
-        if parsed_json['type'] == "book":
-
+        if line_type == "book":
+            # book updates
             ticker = parsed_json['symbol']
             buy_sell_data = {'sell': parsed_json['sell'], 'buy': parsed_json['buy']}
 
@@ -117,7 +117,9 @@ class ExchangeConnection:
 
             self.book.update_ticker_data(ticker, buy_sell_data)
 
-        else if 
+        else if line_type == "":
+            # One of our orders has been filled
+            pass
 
         else:
             logger.error("Don't know how to process type = " + parsed_json['type'])
