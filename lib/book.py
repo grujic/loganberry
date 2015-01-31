@@ -17,20 +17,10 @@ class Book:
         return self.data[ticker]
 
     def get_ticker_buy_data(self, ticker):
-        buy_data = self.data[ticker].get('buy', [])
-
-        if len(buy_data) ==0 :
-            return -1
-        else:
-            return sorted(buy_data, key = lambda x: x[0])
+        return self.data[ticker].get('buy', [])
 
     def get_ticker_sell_data(self, ticker):
-        sell_data = self.data[ticker].get('sell', [])
-
-        if len(sell_data) ==0 :
-            return -1
-        else:
-            return sorted(sell_data, key = lambda x: x[0])
+        return self.data[ticker].get('sell', [])
 
     def get_ticker_buy_prices(self, ticker):
         return [el[0] for el in self.data[ticker]['buy']]
