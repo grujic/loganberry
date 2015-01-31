@@ -14,25 +14,25 @@ def refresh_quotes(conn):
     GAMMA_TOLERANCE = 10
     GAMMA_INDEX = 0.0
 
-    tickets = ['FOO','BAR','BAZ','QUUX','CORGE']
-    for ticket in tickets:
+    tickers = ['FOO','BAR','BAZ','QUUX','CORGE']
+    for ticker in tickers:
 
         # BUY
-        n = conn.book.how_many_buys(ticket)
+        n = conn.book.how_many_buys(ticker)
         
         if n == 0:
             continue
 
-        lead = conn.book.nth_buy_price(ticket, 0)
-        mid = conn.book.nth_buy_price(ticket, int(math.floor(1./3*n)))
-        tail = conn.book.nth_buy_price(ticket, int(math.floor(2./3*n)))
+        lead = conn.book.nth_buy_price(ticker, 0)
+        mid = conn.book.nth_buy_price(ticker, int(math.floor(1./3*n)))
+        tail = conn.book.nth_buy_price(ticker, int(math.floor(2./3*n)))
 
-        mean_volume = conn.book.mean_buy_volume(ticket)
-        position = conn.bank.positions[ticket]
+        mean_volume = conn.book.mean_buy_volume(ticker)
+        position = conn.bank.positions[ticker]
 
         # ALPHA
         q_id = conn.quotes.getID( ticker, 'BUY', 'Alpha' )
-        q_val = conn.quotes.getValue( q_id ) 
+        q_val = conn.quotes.getPrice( q_id ) 
         if ( q_id == -1 or q_val <= lead - ALPHA_TOLERANCE ):
             if ( q_id > 0 ):
                 # Cancel quote
@@ -43,13 +43,13 @@ def refresh_quotes(conn):
             price = lead + 1
             volume = int ( mean_volume + position * ALPHA_INDEX )
             if ( volume > 0 ):
-                new_id = conn.addOrder( ticker, 0, "BUY", price, volume )
+                new_id = conn.addOrder( ticker, "BUY", price, volume )
                 new_quote = Quote( ticker, "BUY", "Alpha", volume, price, new_id )
                 conn.quotes.addQuote( newQuote )
 
         # BETA
         q_id = conn.quotes.getID( ticker, 'BUY', 'Beta' )
-        q_val = conn.quotes.getValue( q_id ) 
+        q_val = conn.quotes.getPrice( q_id ) 
         if ( q_id == -1 or q_val >= lead + BETA_TOLERANCE or q_val <= mid - BETA_TOLERANCE ):
             if ( q_id > 0 ):
                 # Cancel quote
@@ -60,13 +60,13 @@ def refresh_quotes(conn):
             price = int( 0.5 * (lead + mid) )
             volume = int ( mean_volume + position * BETA_INDEX )
             if ( volume > 0 ):
-                new_id = conn.addOrder( ticker, 0, "BUY", price, volume )
+                new_id = conn.addOrder( ticker, "BUY", price, volume )
                 new_quote = Quote( ticker, "BUY", "Beta", volume, price, new_id )
                 conn.quotes.addQuote( newQuote )
 
         # GAMMA
         q_id = conn.quotes.getID( ticker, 'BUY', 'Gamma' )
-        q_val = conn.quotes.getValue( q_id ) 
+        q_val = conn.quotes.getPrice( q_id ) 
         if ( q_id == -1 or q_val >= mid + GAMMA_TOLERANCE or q_val <= tail - GAMMA_TOLERANCE ):
             if ( q_id > 0 ):
                 # Cancel quote
@@ -77,26 +77,26 @@ def refresh_quotes(conn):
             price = int( 0.5 * (tail + mid) )
             volume = int ( mean_volume + position * GAMMA_INDEX )
             if ( volume > 0 ):
-                new_id = conn.addOrder( ticker, 0, "BUY", price, volume )
+                new_id = conn.addOrder( ticker, "BUY", price, volume )
                 new_quote = Quote( ticker, "BUY", "Gamma", volume, price, new_id )
                 conn.quotes.addQuote( newQuote )
 
         # SELL
-        n = conn.book.how_many_sells(ticket)
+        n = conn.book.how_many_sells(ticker)
         
         if n == 0:
             continue
 
-        lead = conn.book.nth_sell_price(ticket, 0)
-        mid = conn.book.nth_sell_price(ticket, int(math.floor(1./3*n)))
-        tail = conn.book.nth_sell_price(ticket, int(math.floor(2./3*n)))
+        lead = conn.book.nth_sell_price(ticker, 0)
+        mid = conn.book.nth_sell_price(ticker, int(math.floor(1./3*n)))
+        tail = conn.book.nth_sell_price(ticker, int(math.floor(2./3*n)))
 
-        mean_volume = conn.book.mean_sell_volume(ticket)
-        position = -conn.bank.positions[ticket]
+        mean_volume = conn.book.mean_sell_volume(ticker)
+        position = -conn.bank.positions[ticker]
 
         # ALPHA
         q_id = conn.quotes.getID( ticker, 'SELL', 'Alpha' )
-        q_val = conn.quotes.getValue( q_id ) 
+        q_val = conn.quotes.getPrice( q_id ) 
         if ( q_id == -1 or q_val >= lead + ALPHA_TOLERANCE ):
             if ( q_id > 0 ):
                 # Cancel quote
@@ -107,13 +107,13 @@ def refresh_quotes(conn):
             price = lead - 1
             volume = int ( mean_volume + position * ALPHA_INDEX )
             if ( volume > 0 ):
-                new_id = conn.addOrder( ticker, 0, "SELL", price, volume )
+                new_id = conn.addOrder( ticker, "SELL", price, volume )
                 new_quote = Quote( ticker, "SELL", "Alpha", volume, price, new_id )
                 conn.quotes.addQuote( newQuote )
 
         # BETA
         q_id = conn.quotes.getID( ticker, 'SELL', 'Beta' )
-        q_val = conn.quotes.getValue( q_id ) 
+        q_val = conn.quotes.getPrice( q_id ) 
         if ( q_id == -1 or q_val <= lead + BETA_TOLERANCE or q_val >= mid - BETA_TOLERANCE ):
             if ( q_id > 0 ):
                 # Cancel quote
@@ -124,13 +124,13 @@ def refresh_quotes(conn):
             price = int( 0.5 * (lead + mid) )
             volume = int ( mean_volume + position * BETA_INDEX )
             if ( volume > 0 ):
-                new_id = conn.addOrder( ticker, 0, "SELL", price, volume )
+                new_id = conn.addOrder( ticker, "SELL", price, volume )
                 new_quote = Quote( ticker, "SELL", "Beta", volume, price, new_id )
                 conn.quotes.addQuote( newQuote )
 
         # GAMMA
         q_id = conn.quotes.getID( ticker, 'SELL', 'Gamma' )
-        q_val = conn.quotes.getValue( q_id ) 
+        q_val = conn.quotes.getPrice( q_id ) 
         if ( q_id == -1 or q_val <= mid + GAMMA_TOLERANCE or q_val >= tail - GAMMA_TOLERANCE ):
             if ( q_id > 0 ):
                 # Cancel quote
@@ -141,6 +141,6 @@ def refresh_quotes(conn):
             price = int( 0.5 * (tail + mid) )
             volume = int ( mean_volume + position * GAMMA_INDEX )
             if ( volume > 0 ):
-                new_id = conn.addOrder( ticker, 0, "SELL", price, volume )
+                new_id = conn.addOrder( ticker, "SELL", price, volume )
                 new_quote = Quote( ticker, "SELL", "Gamma", volume, price, new_id )
                 conn.quotes.addQuote( newQuote )
