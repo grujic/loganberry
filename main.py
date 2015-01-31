@@ -50,6 +50,9 @@ for x in xrange(10):
         buy_everything_at_best_ask(conn)
         sell_everything_at_best_bid(conn)
 
+    print "Current quotes are: "
+    print conn.quotes.printQuotes()
+
     if x == 9:
         conn.bank.print_portfolio()
 

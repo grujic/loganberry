@@ -26,4 +26,7 @@ class Quotes:
 	def acknowledgeQuote(self, quote_id):
 		pass
 
+	def printQuotes(self):
+		print self.quotes
+
 
