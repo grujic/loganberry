@@ -11,7 +11,7 @@ def buy_algo(conn, bank, book, quotes):
 	
 	print best_buy_quote
 	
-	if(true):
+	if(True):
 		order_id = conn.addOrder("FOO", "BUY", best_buy_quote[0], best_buy_quote[1])
 
 		quote_record = Quote("FOO", "BUY", "Beta", best_buy_quote[1], best_buy_quote[0], order_id)
