@@ -66,8 +66,9 @@ class ExchangeConnection:
                 if parsed_json['type'] == "book":
 
                 	ticker = parsed_json['symbol']
-                	self.book.update_ticker_data(ticker, {'sell': parsed_json['sell'], 'buy': parsed_json
-['buy']})
+                	buy_sell_data = {'sell': parsed_json['sell'], 'buy': parsed_json
+['buy']}
+                	self.book.update_ticker_data(ticker, buy_sell_data)
                 else:
                 	print("Don't know how to process type = " + parsed_json['type'])
 
