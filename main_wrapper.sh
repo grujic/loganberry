@@ -26,6 +26,7 @@ sleep 1
 
 echo 'eth0: Running main.py...'
 python main.py 10.0.129.254 $IDX &
+pid=$!
 
 echo "Starting in 2..."
 sleep 1
@@ -41,3 +42,6 @@ echo "eth0: Closing the markets."
 eth0 close-market 10.0.129.254:47000
 eth0 close-market 10.0.129.254:47001
 eth0 close-market 10.0.129.254:47002
+
+sleep 5
+kill $pid
