@@ -69,8 +69,10 @@ class ExchangeConnection:
 		else:
 			send_str = self._fromJSON(json_packet)
 
-		s.send(send_str)
-		resp = s.recv(1024)
-		s.close()
+		self.s.send(send_str)
+		resp = self.s.recv(1024)
 
 		return json.loads(resp)
+
+	def _close_connection(self):
+		self.s.close()
