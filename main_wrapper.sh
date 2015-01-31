@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script to wrap main.py, stopping the market first, restarting it, running main, then stopping the market again.
-IDX=0
+IDX=1
 TIME_UNTIL_START=10  # in seconds
 TIME_WHILE_OPEN=10  # in seconds
 
