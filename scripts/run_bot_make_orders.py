@@ -1,7 +1,7 @@
 from time import sleep
 from lib import defs
 
-ec = defs.ExchangeConnection(port=25002)
+ec = defs.ExchangeConnection(port=25001)
 ec.sayHello()
 
 for x in xrange(10):
