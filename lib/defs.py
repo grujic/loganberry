@@ -119,8 +119,17 @@ class ExchangeConnection:
 
         elif line_type == "fill":
             # One of our orders has been filled
-            logger.error("A FILL LINE")
-            logger.error(line)
+            order_id = parsed_json["order_id"]
+            ticker = parsed_json["symbol"]
+            direction = parsed_json["dir"]
+            price = parsed_json["price"]
+            size = parsed_json["size"]
+            
+            # Update bank
+            self.bank.update(ticker, price, size, direction)
+            
+            # Update list of outstanding quotes
+            self.quotes.removeQuote(order_id)
 
         elif line_type == "trade":
             ticker = parsed_json["symbol"]
