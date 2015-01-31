@@ -1,6 +1,6 @@
 from strategies.bank_class import Bank
 from lib.defs import ExchangeConnection
-
+from strategies.quotes_class import Quote
 
 
 
