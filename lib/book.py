@@ -47,7 +47,15 @@ class Book:
         return sorted(self.get_ticker_sell_data(ticker), key = lambda x: x[0])[n][0]
 
     def mean_buy_volume(self, ticker):
-        self.get_ticker_buy_prices(ticker)
+        sizes = self.get_ticker_buy_volumes(ticker)
+        if len(sizes) > 0:
+            return 1.0*sum(sizes)/len(sizes)
+        else:
+            return 0
 
     def mean_sell_volume(self, ticker):
-        pass
+        sizes = self.get_ticker_sell_volumes(ticker)
+        if len(sizes) > 0:
+            return 1.0*sum(sizes)/len(sizes)
+        else:
+            return 0
