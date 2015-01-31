@@ -5,7 +5,8 @@ from lib.defs import ExchangeConnection
 
 
 def buy_algo(conn, bank, book, quotes):
-
+	print "buy algo function ran"
+	
 	book_data = book.get_ticker_data("FOO")
 
 	print book_data
