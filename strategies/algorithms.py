@@ -7,17 +7,13 @@ from lib.defs import ExchangeConnection
 def buy_algo(conn, bank, book, quotes):
 	print "Running buy algo function"
 
-	best_price = book.get_best_buy_price("FOO")
+	best_buy_quote = book.get_best_buy_price("FOO")
+	
 	print best_price
 	
-	# if(false):
-	# 	test_direction = "BUY"
-	# 	test_quote_type = "Beta"
-	# 	test_price = 15
-	# 	test_num_shares = 100
+	if(true):
+		order_id = conn.addOrder("FOO", "BUY", best_buy_quote[0], best_buy_quote[1])
 
-	# 	order_id = conn.addOrder(test_ticker, test_direction, test_price, test_num_shares)
+		quote_record = Quote("FOO", "BUY", "Beta", best_buy_quote[1], best_buy_quote[0], order_id)
 
-	# 	test_quote = Quote(test_ticker, test_direction, test_quote_type, test_num_shares, test_price, order_id)
-
-	# 	quotes.addQuote(test_quote)
+		quotes.addQuote(quote_record)
