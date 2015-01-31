@@ -36,17 +36,15 @@ print("port index = " + str(args.port_index) + "\n\n")
 
 ### Instantiate connection to the exchange ###
 
+conn = ExchangeConnection(args.exchange_host, 25000 + int(args.port_index))
+conn.sayHello()
+print 'Entering loop'
 
 while True:
-    print 'Entering loop'
-    conn = ExchangeConnection(args.exchange_host, 25000 + int(args.port_index))
-    conn.sayHello()
     conn.update()
     
     if conn.market_open is False:
-        print "Market isn't open... sleeping."
-        conn._close_connection()
-        sleep(5)
+        print "Market isn't open... looping."
         continue
 
     for x in xrange(10):
