@@ -50,65 +50,65 @@ def arbitrage_CORGE(conn):
 
 	for num_shares in xrange (multiplier, 100, -100):
 
-		corge_avg_price = conn.book.get_vwap_buy_price("CORGE", multiplier)
-		foo_avg_price = conn.book.get_vwap_sell_price("FOO", multiplier)
-		bar_avg_price = conn.book.get_vwap_sell_price("BAR", multiplier)
+		corge_avg_price = conn.book.get_vwap_buy_price("CORGE", num_shares)
+		foo_avg_price = conn.book.get_vwap_sell_price("FOO", num_shares)
+		bar_avg_price = conn.book.get_vwap_sell_price("BAR", num_shares)
 
 		#print "corge_sell_price: " + str(corge_avg_price)
 		#print "foo_buy_price: " + str(foo_avg_price)
 		#print "bar_buy_price: " + str(bar_avg_price)
 
-		corge_sell_price = multiplier * corge_avg_price
-		foo_buy_price = multiplier * 0.3 * foo_avg_price
-		bar_buy_price = multiplier * 0.8 * bar_avg_price
+		corge_sell_price = num_shares * corge_avg_price
+		foo_buy_price = num_shares * 0.3 * foo_avg_price
+		bar_buy_price = num_shares * 0.8 * bar_avg_price
 
 		if(corge_sell_price > foo_buy_price + bar_buy_price + 100):
 			#Buy Foo:
-			order_id = conn.addOrder("FOO", "BUY", 999999, multiplier)
-			quote_record = Quote("FOO", "BUY", "Arb", 999999, multiplier, order_id)
+			order_id = conn.addOrder("FOO", "BUY", 999999, num_shares)
+			quote_record = Quote("FOO", "BUY", "Arb", 999999, num_shares, order_id)
 			conn.quotes.addQuote(quote_record)
 
 			#Buy Bar:
-			order_id = conn.addOrder("BAR", "BUY", 999999, multiplier)
-			quote_record = Quote("BAR", "BUY", "Arb", 999999, multiplier, order_id)
+			order_id = conn.addOrder("BAR", "BUY", 999999, num_shares)
+			quote_record = Quote("BAR", "BUY", "Arb", 999999, num_shares, order_id)
 			conn.quotes.addQuote(quote_record)
 
 			#Sell Corge:
-			order_id = conn.addOrder("CORGE", "SELL", 1, multiplier)
-			quote_record = Quote("CORGE", "SELL", "Arb", 1, multiplier, order_id)
+			order_id = conn.addOrder("CORGE", "SELL", 1, num_shares)
+			quote_record = Quote("CORGE", "SELL", "Arb", 1, num_shares, order_id)
 			conn.quotes.addQuote(quote_record)
 
 			#Convert Corge:
-			conn.convertOrder("CORGE", "BUY", multiplier)
+			conn.convertOrder("CORGE", "BUY", num_shares)
 
 
-		corge_avg_price = conn.book.get_vwap_sell_price("CORGE", multiplier)
-		foo_avg_price = conn.book.get_vwap_buy_price("FOO", multiplier)
-		bar_avg_price = conn.book.get_vwap_buy_price("BAR", multiplier)
+		corge_avg_price = conn.book.get_vwap_sell_price("CORGE", num_shares)
+		foo_avg_price = conn.book.get_vwap_buy_price("FOO", num_shares)
+		bar_avg_price = conn.book.get_vwap_buy_price("BAR", num_shares)
 
 		#print "corge_buy_price: " + str(corge_avg_price)
 		#print "foo_sell_price: " + str(foo_avg_price)
 		#print "bar_sell_price: " + str(bar_avg_price)
 
-		corge_buy_price = multiplier * corge_avg_price
-		foo_sell_price = multiplier * 0.3 * foo_avg_price
-		bar_sell_price = multiplier * 0.8 * bar_avg_price
+		corge_buy_price = num_shares * corge_avg_price
+		foo_sell_price = num_shares * 0.3 * foo_avg_price
+		bar_sell_price = num_shares * 0.8 * bar_avg_price
 
 		if(corge_buy_price < foo_sell_price + bar_sell_price - 100):
 			#Sell Foo:
-			order_id = conn.addOrder("FOO", "SELL", 1, multiplier)
-			quote_record = Quote("FOO", "SELL", "Arb", 1, multiplier, order_id)
+			order_id = conn.addOrder("FOO", "SELL", 1, num_shares)
+			quote_record = Quote("FOO", "SELL", "Arb", 1, num_shares, order_id)
 			conn.quotes.addQuote(quote_record)
 
 			#Sell Bar:
-			order_id = conn.addOrder("BAR", "SELL", 1, multiplier)
-			quote_record = Quote("BAR", "SELL", "Arb", 1, multiplier, order_id)
+			order_id = conn.addOrder("BAR", "SELL", 1, num_shares)
+			quote_record = Quote("BAR", "SELL", "Arb", 1, num_shares, order_id)
 			conn.quotes.addQuote(quote_record)
 
 			#Buy Corge:
-			order_id = conn.addOrder("CORGE", "BUY", 999999, multiplier)
-			quote_record = Quote("CORGE", "BUY", "Arb", 999999, multiplier, order_id)
+			order_id = conn.addOrder("CORGE", "BUY", 999999, num_shares)
+			quote_record = Quote("CORGE", "BUY", "Arb", 999999, num_shares, order_id)
 			conn.quotes.addQuote(quote_record)
 
 			#Convert Corge:
-			conn.convertOrder("CORGE", "SELL", multiplier)
+			conn.convertOrder("CORGE", "SELL", num_shares)
