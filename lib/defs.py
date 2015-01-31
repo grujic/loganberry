@@ -50,6 +50,7 @@ class ExchangeConnection:
         self.book = Book()
         self.quotes = Quotes()
         self.next_order_id = 0
+        self._carry_over = ''   # for carrying over network socket buffet
         
         logger.debug('Starting up.')
 
@@ -159,7 +160,8 @@ class ExchangeConnection:
             send_str = json_packet
         else:
             send_str = self._fromJSON(json_packet)
-
+        
+        logger.debug('Sending: ' + send_str)
         self.s.send(send_str)
 
     def _send_and_receive(self, json_packet):
@@ -185,7 +187,7 @@ class ExchangeConnection:
         
     def _readlines(self, recv_buffer=4096, delim='\n', lines_to_read=10):
         # Reads the buffer and returns *at least* line_to_read
-        buffer = ''
+        buffer = self._carry_over
         data = True
         lines = []
         count_idx = 0
@@ -199,8 +201,8 @@ class ExchangeConnection:
                 lines.append(line)
                 
             if count_idx >= lines_to_read:
-                # save input to somewhere., self.blah
-                # TODO FIX ME.
+                # save remaining buffer to class...
+                self._carry_over = buffer
                 return lines
             
         return
