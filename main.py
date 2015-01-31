@@ -48,11 +48,6 @@ for x in xrange(10):
         #conn.addOrder('QUUX', 'BUY', 1, 50)
         #conn.addOrder('QUUX', 'BUY', 10000, 50)
         buy_everything_at_best_ask(conn)
-
-    if x == 4:
-        conn.bank.print_portfolio()
-        #conn.addOrder('QUUX', 'BUY', 1, 50)
-        #conn.addOrder('QUUX', 'BUY', 10000, 50)
         sell_everything_at_best_bid(conn)
 
     if x == 9:
