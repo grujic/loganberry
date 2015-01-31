@@ -33,21 +33,24 @@ class ExchangeConnection:
         
         logging.debug('Starting up.')
     
-    def addOrder(self, stock_ticker, order_id, dir, price, size):
-        # Add an order
-        json_struct = { \
-            "type": "add", \
-            "order_id": order_id, \
-            "symbol": stock_ticker, \
-            "dir": dir, \
-            "price": price, \
-            "size": size \
-        }
+	def addOrder(self, stock_ticker, dir, price, size):
+		self.next_order_id += 1
 
-        resp = self._send_and_receive(json_struct)
-        logging.debug('resp: ' + resp)
+		# Add an order
+		json_struct = { \
+			"type": "add", \
+			"order_id": self.next_order_id, \
+			"symbol": stock_ticker, \
+			"dir": dir, \
+			"price": price, \
+			"size": size \
+		}
 
-        return resp
+		resp = self._send_and_receive(json_struct)
+
+		print(resp)
+
+		return self.next_order_id
 
     def convertOrder(self):
         # Convert an ETH to its components
@@ -119,8 +122,6 @@ class ExchangeConnection:
             send_str = self._fromJSON(json_packet)
 
         self.s.send(send_str)
-        
-        
 
     def _send_and_receive(self, json_packet):
         # General function for sending some JSON
