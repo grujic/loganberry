@@ -125,7 +125,7 @@ class Book:
                 vwap += size * price / shares
                 need_to_sell -= size
 
-        if(need_to_buy > 0):
+        if(need_to_sell > 0):
             return 0
         else:
             return vwap
