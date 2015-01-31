@@ -3,17 +3,35 @@ from lib.defs import ExchangeConnection
 from strategies.quotes_class import Quote
 
 
+def buy_everything_at_best_ask(conn):
+	print "Running buy_everything_at_best_ask() function"
 
-def buy_algo(conn, bank, quotes):
-	print "Running buy algo function"
+	tickers = [ "FOO", "BAR", "BAZ", "QUUX", "CORGE" ]
+	size = 100
 
-	best_buy_quote = conn.book.get_best_buy_quote("FOO")
-	
-	print best_buy_quote
-	
-	if(True):
-		order_id = conn.addOrder("FOO", "BUY", best_buy_quote[0], best_buy_quote[1])
+	for ticker in tickers:
+		best_buy_quote = conn.book.get_best_buy_quote(ticker)
 
-		quote_record = Quote("FOO", "BUY", "Beta", best_buy_quote[0], best_buy_quote[1], order_id)
+		print "Best buy quote for " + ticker + " is " + str(best_buy_quote)
 
-		quotes.addQuote(quote_record)
+		order_id = conn.addOrder(ticker, "BUY", best_buy_quote[0], size)
+
+		quote_record = Quote(ticker, "BUY", "Alpha", best_buy_quote[0], size, order_id)
+		conn.quotes.addQuote(quote_record)
+
+
+def sell_everything_at_best_bid(conn):
+	print "Running sell_everything_at_best_bid() function"
+
+	tickers = [ "FOO", "BAR", "BAZ", "QUUX", "CORGE" ]
+	size = 100
+
+	for ticker in tickers:
+		best_sell_quote = conn.book.get_best_sell_quote(ticker)
+
+		print "Best sell quote for " + ticker + " is " + str(best_sell_quote)
+
+		order_id = conn.addOrder(ticker, "SELL", best_sell_quote[0], size)
+
+		quote_record = Quote(ticker, "SELL", "Alpha", best_sell_quote[0], size, order_id)
+		conn.quotes.addQuote(quote_record)
