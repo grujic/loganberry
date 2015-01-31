@@ -38,12 +38,17 @@ class ExchangeConnection:
 		# Check connection
 		### TEMP ###
 		ehlo = {"type": "hello", "team": "LOGANBERRY"}
-
-		resp = self._send_and_receive(ehlo)
-
-		print resp
-
-		return resp
+		# resp = self._send_and_receive(ehlo)
+		self._send(ehlo)
+		
+        def update(self):
+                # Receives data from network stream, updates
+                # linked Book class instance.
+                for line in self.readlines(self.s):
+                    print 'New line:'
+                    print line
+                
+                
 
 	### Lower level communications ###
 	def _fromJSON(self, json_struct):
@@ -54,6 +59,20 @@ class ExchangeConnection:
 		s = socket.socket()
 		s.connect((self.host, self.port))
 		return s
+
+        def _send(self, json_packet):
+                # Send some JSON to the server.
+                
+                # TODO check socket not dead.
+                # Check if json_packet is already of type string:
+                if type(json_packet) == str:
+                        send_str = json_packet
+                else:
+                        send_str = self._fromJSON(json_packet)
+
+                self.s.send(send_str)
+                
+                
 
 	def _send_and_receive(self, json_packet):
 		# General function for sending some JSON
@@ -74,6 +93,30 @@ class ExchangeConnection:
 
 		# TODO want to return actual JSON
 		return resp
+
+            
+        def _readlines(self, recv_buffer=4096, delim='\n', lines_to_read=10):
+                # Reads the buffer and returns *at least* line_to_read
+                buffer = ''
+                data = True
+                lines = []
+                count_idx = 0
+                while data:
+                        data = self.s.recv(recv_buffer)
+                        buffer += data
+
+                        while buffer.find(delim) != -1:
+                                line, buffer = buffer.split('\n', 1)
+                                count_idx += 1
+                                lines.append(line)
+                                
+                        if count_idx >= lines_to_read:
+                                # save input to somewhere., self.blah
+                                # TODO FIX ME.
+                                return lines
+                        
+                return
+        
 
 	def _close_connection(self):
 		self.s.close()
