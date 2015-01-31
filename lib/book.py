@@ -84,6 +84,9 @@ class Book:
         
         print sell_data
 
+        if len(sell_data) == 0:
+        	return 99999999
+
         for quote in sell_data:
             price = quote[0]
             size = quote[1]
@@ -93,7 +96,7 @@ class Book:
                 need_to_buy = 0
             else:
                 vwap += size * price / shares
-                need_to_buy -= size
+                need_to_buy = need_to_buy - size
 
         if(need_to_buy > 0):
         	return 99999999
@@ -110,6 +113,9 @@ class Book:
         
         print buy_data
 
+        if len(sell_data) == 0:
+        	return 0
+
         for quote in buy_data:
             price = quote[0]
             size = quote[1]
@@ -119,7 +125,7 @@ class Book:
                 need_to_sell = 0
             else:
                 vwap += size * price / shares
-                need_to_sell -= size
+                need_to_sell = need_to_sell - size
 
         if(need_to_sell > 0):
             return 0
