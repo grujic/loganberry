@@ -12,6 +12,9 @@ def buy_everything_at_best_ask(conn):
 	for ticker in tickers:
 		best_sell_quote = conn.book.get_best_sell_quote(ticker)
 
+        if best_sell_quote == -1:
+            return
+
 		print "Best sell quote for " + ticker + " is " + str(best_sell_quote)
 		print conn.book.get_ticker_sell_data(ticker)
 
@@ -29,6 +32,9 @@ def sell_everything_at_best_bid(conn):
 
 	for ticker in tickers:
 		best_buy_quote = conn.book.get_best_buy_quote(ticker)
+
+        if best_buy_quote == -1:
+            return
 
 		print "Best sell quote for " + ticker + " is " + str(best_buy_quote)
 		print conn.book.get_ticker_buy_data(ticker)
