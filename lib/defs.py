@@ -44,10 +44,15 @@ class ExchangeConnection:
         def update(self):
                 # Receives data from network stream, updates
                 # linked Book class instance.
-                for line in self.readlines(self.s):
-                    print 'New line:'
-                    print line
+                lines = self._readlines(lines_to_read=10)
                 
+                for line in lines:
+                        self.parse(line)
+                
+        def parse(self):
+                # Workhorse function to parse lines returned
+                # from server.
+                pass
                 
 
 	### Lower level communications ###
