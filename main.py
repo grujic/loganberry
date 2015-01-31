@@ -15,14 +15,14 @@ PUBLIC_EXCHANGE_PUBLIC_IP = "54.154.191.94"
 PUBLIC_EXCHANGE_PUBLIC_IP = "10.0.129.254"
 
 parser = argparse.ArgumentParser(description='Main script for the loganberry team.')
-parser.add_argument('exchange_host', 
+parser.add_argument('exchange_host',
                     metavar='host',
                     type=str,
                     default='10.0.129.254',
                     help='Host IP, default is 10.0.129.254')
 parser.add_argument('port_index',
                     metavar='port',
-                    type=int, 
+                    type=int,
                     default=25000,
                     help='Port, default is 25000')
 
@@ -39,13 +39,18 @@ conn = ExchangeConnection(args.exchange_host, 25000 + int(args.port_index))
 
 conn.sayHello()
 
-for x in xrange(1):
+for x in xrange(10):
     print 'Iteration {}'.format(x)
     sleep(1)
     conn.update()
 
-    conn.addOrder('QUUX', 'BUY', 1, 50)
-    conn.addOrder('QUUX', 'BUY', 10000, 50)
+    if x == 0:
+        conn.bank.print_portfolio()
+        conn.addOrder('QUUX', 'BUY', 1, 50)
+        conn.addOrder('QUUX', 'BUY', 10000, 50)
+
+    if x == 9:
+        conn.bank.print_portfolio()
 
 # conn.book.update_ticker_data("FOO", {'buy': [[3367,100],[3359,100],[3355,300],[3349,300],[3348,100],[3347,100],[3344,300],[3343,100],[3338,200],[3335,100],[3318,200],[3313,200]], 'sell': [[3367,100],[3359,100],[3355,300],[3349,300],[3348,100],[3347,100],[3344,300],[3343,100],[3338,200],[3335,100],[3318,200],[3313,200]]})
 # conn.book.update_ticker_data("BAR", {'buy': [[1,100],[1,100],[1,300],[1,300],[321,100],[432,100],[432,300],[654,100],[156,200],[654,100],[23,200],[423,200]], 'sell': [[65,100],[34,100],[134,300],[65,300],[6547,100],[134,100],[234,300],[56,100],[54,200],[45,100],[13,200],[76,200]]})
