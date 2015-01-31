@@ -5,44 +5,54 @@ from logging import handlers
 
 from lib.book import Book
 
+# Set up logging: (this uses old-style formatting)
 formatStr = '[%(asctime)s]  %(levelname)-7s (%(filename)s:%(lineno)d) %(funcName)s - %(message)s'
 dateFmtStr = '%d %b %H:%M:%S'
 #logging.basicConfig(format=formatStr, 
                     #datefmt='%d %b %H:%M:%S', 
                     #level=logging.INFO)
 # create logger
-logger = logging.getLogger('loganberry')
-logger.setLevel(logging.DEBUG)
+logger = logging.getLogger('upsilon2')
+logger.setLevel(logging.INFO)
 
 # create console handler and set level to debug
 #ch = logging.FileHandler('test.log')
-#ch = logging.StreamHandler()
-#ch.setLevel(logging.DEBUG)
-#formatter = logging.Formatter(formatStr,
-                              #dateFmtStr)  # create formatter
-#ch.setFormatter(formatter)                # add formatter to ch
+ch = logging.StreamHandler()
+ch.setLevel(logging.INFO)
+formatter = logging.Formatter(formatStr,
+                              dateFmtStr)  # create formatter
+ch.setFormatter(formatter)                # add formatter to ch
+#logger.addHandler(ch)                     # add ch to logger
 
-#fh = handlers.TimedRotatingFileHandler('main.log',
-                                                #when='midnight',
-                                                #backupCount=7)
-#fh.setLevel(logging.INFO)
-#fh.setFormatter(formatter)                # add formatter to ch
+# Add a file logger:
+fh = logging.handlers.TimedRotatingFileHandler('main.log',
+                                                when='midnight',
+                                                backupCount=7)
+fh.setLevel(logging.INFO)
+fh.setFormatter(formatter)                # add formatter to ch
+#logger.addHandler(fh)                     # add ch to logger
 
-#rootlogger = logging.getLogger()
-#rootlogger.addHandler(ch)
-#rootlogger.addHandler(fh)
+apslogger = logging.getLogger("apscheduler")
+apslogger.setLevel(logging.WARNING)
+#apslogger.addHandler(ch)
+
+# Add root logger to both handlers: get all messages to console AND file.
+rootlogger = logging.getLogger()
+rootlogger.addHandler(ch)
+rootlogger.addHandler(fh)
 
 
 class ExchangeConnection:
     # Main class for interacting with the exchange
 
-    def __init__(self, host='10.0.129.254', port=25000):
+    def __init__(self, host='10.0.129.254', port=25000, start_immediately=True):
         self.host = host
         self.port = port
-        self.s = self._startConnection()
+        if start_immediately:
+            self.s = self._startConnection()
         self.book = Book()
         
-        logging.debug('Starting up.')
+        logger.debug('Starting up.')
 
 
 	def addOrder(self, stock_ticker, dir, price, size):
