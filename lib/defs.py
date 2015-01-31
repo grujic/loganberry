@@ -15,12 +15,12 @@ dateFmtStr = '%d %b %H:%M:%S'
                     #level=logging.INFO)
 # create logger
 logger = logging.getLogger('loganberry')
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 
 # create console handler and set level to debug
 #ch = logging.FileHandler('test.log')
 ch = logging.StreamHandler()
-ch.setLevel(logging.DEBUG)
+ch.setLevel(logging.INFO)
 formatter = logging.Formatter(formatStr,
                               dateFmtStr)  # create formatter
 ch.setFormatter(formatter)                # add formatter to ch
@@ -114,8 +114,8 @@ class ExchangeConnection:
             ticker = parsed_json['symbol']
             buy_sell_data = {'sell': parsed_json['sell'], 'buy': parsed_json['buy']}
 
-            logger.info("buy_sell_data for ticker " + ticker + " = ")
-            logger.info(str(buy_sell_data))
+            logger.debug("buy_sell_data for ticker " + ticker + " = ")
+            logger.debug(str(buy_sell_data))
 
             self.book.update_ticker_data(ticker, buy_sell_data)
 
