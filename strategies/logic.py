@@ -1,5 +1,6 @@
 # Imports
 from strategies.quotes_class import Quote, Quotes
+import math
 
 # Functions
 
@@ -17,9 +18,14 @@ def refresh_quotes(conn):
     for ticket in tickets:
 
         # BUY
+        n = conn.book.how_many_buys(ticket)
+        
+        if n == 0:
+            continue
+
         lead = conn.book.nth_buy_price(ticket, 0)
-        mid = conn.book.nth_buy_price(ticket, 5)
-        tail = conn.book.nth_buy_price(ticket, 10)
+        mid = conn.book.nth_buy_price(ticket, int(math.floor(1./3*n)))
+        tail = conn.book.nth_buy_price(ticket, int(math.floor(2./3*n)))
 
         mean_volume = conn.book.mean_buy_volume(ticket)
         position = conn.bank.positions[ticket]
@@ -76,10 +82,14 @@ def refresh_quotes(conn):
                 conn.quotes.addQuote( newQuote )
 
         # SELL
+        n = conn.book.how_many_sells(ticket)
         
+        if n == 0:
+            continue
+
         lead = conn.book.nth_sell_price(ticket, 0)
-        mid = conn.book.nth_sell_price(ticket, 5)
-        tail = conn.book.nth_sell_price(ticket, 10)
+        mid = conn.book.nth_sell_price(ticket, int(math.floor(1./3*n)))
+        tail = conn.book.nth_sell_price(ticket, int(math.floor(2./3*n)))
 
         mean_volume = conn.book.mean_sell_volume(ticket)
         position = -conn.bank.positions[ticket]
