@@ -1,6 +1,7 @@
 import socket
 import json
 import logging
+from logging import handlers
 
 from lib.book import Book
 
@@ -15,21 +16,21 @@ logger.setLevel(logging.DEBUG)
 
 # create console handler and set level to debug
 #ch = logging.FileHandler('test.log')
-ch = logging.StreamHandler()
-ch.setLevel(logging.DEBUG)
-formatter = logging.Formatter(formatStr,
-                              dateFmtStr)  # create formatter
-ch.setFormatter(formatter)                # add formatter to ch
+#ch = logging.StreamHandler()
+#ch.setLevel(logging.DEBUG)
+#formatter = logging.Formatter(formatStr,
+                              #dateFmtStr)  # create formatter
+#ch.setFormatter(formatter)                # add formatter to ch
 
-fh = logging.handlers.TimedRotatingFileHandler('main.log',
-                                                when='midnight',
-                                                backupCount=7)
-fh.setLevel(logging.INFO)
-fh.setFormatter(formatter)                # add formatter to ch
+#fh = handlers.TimedRotatingFileHandler('main.log',
+                                                #when='midnight',
+                                                #backupCount=7)
+#fh.setLevel(logging.INFO)
+#fh.setFormatter(formatter)                # add formatter to ch
 
-rootlogger = logging.getLogger()
-rootlogger.addHandler(ch)
-rootlogger.addHandler(fh)
+#rootlogger = logging.getLogger()
+#rootlogger.addHandler(ch)
+#rootlogger.addHandler(fh)
 
 
 class ExchangeConnection:
