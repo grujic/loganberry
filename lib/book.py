@@ -51,3 +51,36 @@ class Book:
 
     def mean_sell_volume(self, ticker):
         pass
+
+    def get_vwap_sell_price(self, ticker, shares):
+        vwap = 0
+        need_to_buy = shares
+
+        sell_data = self.get_ticker_sell_data(ticker)
+        
+        print sell_data
+
+        sorted(self.get_ticker_sell_data(ticker), key = lambda x: x[0])[0]
+
+        print sell_data
+
+        i = 0
+
+        for quote in sell_data:
+        	price = quote[0]
+        	size = quote[1]
+
+        	if(size >= need_to_buy):
+        		vwap += need_to_buy * price
+        		need_to_buy = 0
+        	else:
+        		vwap += size * price / shares
+        		need_to_buy -= size
+
+        	i++
+
+
+
+
+
+
