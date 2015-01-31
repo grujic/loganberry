@@ -72,8 +72,9 @@ while True:
         #conn.addOrder('QUUX', 'BUY', 10000, 50)
         #buy_everything_at_best_ask(conn)
         #sell_everything_at_best_bid(conn)
-        arbitrage_CORGE(conn)
 
+    arbitrage_CORGE(conn)
+    
     print "Current quotes are: "
     print conn.quotes.printQuotes()
             
