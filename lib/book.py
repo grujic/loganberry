@@ -75,6 +75,8 @@ class Book:
             return 0
 
     def get_vwap_sell_price(self, ticker, shares):
+        print ticker + ":"
+
         vwap = 0
         need_to_buy = shares
 
@@ -103,6 +105,8 @@ class Book:
         	return vwap
 
     def get_vwap_buy_price(self, ticker, shares):
+        print ticker + ":"
+        
         vwap = 0
         need_to_sell = shares
 
