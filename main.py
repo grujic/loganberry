@@ -63,14 +63,14 @@ while True:
     #for x in xrange(10):
     print 'Iteration {}'.format(x)
     conn.update()
-    refresh_quotes(conn)
+    # refresh_quotes(conn)
 
     if x == 1:
         conn.bank.print_portfolio()
         #conn.addOrder('QUUX', 'BUY', 1, 50)
         #conn.addOrder('QUUX', 'BUY', 10000, 50)
-        # buy_everything_at_best_ask(conn)
-        # sell_everything_at_best_bid(conn)
+        buy_everything_at_best_ask(conn)
+        sell_everything_at_best_bid(conn)
 
     print "Current quotes are: "
     print conn.quotes.printQuotes()
