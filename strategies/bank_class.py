@@ -15,10 +15,10 @@ class Bank:
 	def update(self, ticker, price, size, direction):
 		if (direction == "BUY"):
 			dir_integer = 1
-		else
+		else:
 			dir_integer = -1
 		
-		cash += dir_integer * size * price
+		self.cash += -1 * dir_integer * size * price
 		vwap = ( self.prices[ticker] * self.positions[ticker] + dir_integer * size * price ) / (self.positions[ticker] + dir_integer * size)
 
 		self.prices[ticker] = vwap
