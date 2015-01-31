@@ -51,28 +51,28 @@ class ExchangeConnection:
         if start_immediately:
             self.s = self._startConnection()
         self.book = Book()
+        self.next_order_id = 0
         
         logger.debug('Starting up.')
 
+    def addOrder(self, stock_ticker, dir, price, size):
+        self.next_order_id += 1
 
-	def addOrder(self, stock_ticker, dir, price, size):
-		self.next_order_id += 1
+        # Add an order
+        json_struct = { \
+            "type": "add", \
+            "order_id": self.next_order_id, \
+            "symbol": stock_ticker, \
+            "dir": dir, \
+            "price": price, \
+            "size": size \
+        }
 
-		# Add an order
-		json_struct = { \
-			"type": "add", \
-			"order_id": self.next_order_id, \
-			"symbol": stock_ticker, \
-			"dir": dir, \
-			"price": price, \
-			"size": size \
-		}
+        #resp = self._send_and_receive(json_struct)
 
-		resp = self._send_and_receive(json_struct)
+        #print(resp)
 
-		print(resp)
-
-		return self.next_order_id
+        return self.next_order_id
 
     def convertOrder(self):
         # Convert an ETH to its components
