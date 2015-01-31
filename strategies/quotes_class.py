@@ -27,7 +27,7 @@ class Quotes:
 		pass
 
 	def printQuotes(self):
-		for quote in self.quotes
+		for quote in self.quotes:
 			print self.quote
 
 
