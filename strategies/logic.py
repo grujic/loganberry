@@ -1,5 +1,6 @@
 # Imports
 from strategies.quotes_class import Quote, Quotes
+import math
 
 # Functions
 
@@ -13,16 +14,21 @@ def refresh_quotes(conn):
     GAMMA_TOLERANCE = 10
     GAMMA_INDEX = 0.0
 
-    tickets = ['FOO','BAR','BAZ','QUUX','CORGE']
-    for ticket in tickets:
+    tickers = ['FOO','BAR','BAZ','QUUX','CORGE']
+    for ticker in tickers:
 
         # BUY
-        lead = conn.book.nth_buy_price(ticket, 0)
-        mid = conn.book.nth_buy_price(ticket, 5)
-        tail = conn.book.nth_buy_price(ticket, 10)
+        n = conn.book.how_many_buys(ticker)
+        
+        if n == 0:
+            continue
 
-        mean_volume = conn.book.mean_buy_volume(ticket)
-        position = conn.bank.positions[ticket]
+        lead = conn.book.nth_buy_price(ticker, 0)
+        mid = conn.book.nth_buy_price(ticker, int(math.floor(1./3*n)))
+        tail = conn.book.nth_buy_price(ticker, int(math.floor(2./3*n)))
+
+        mean_volume = conn.book.mean_buy_volume(ticker)
+        position = conn.bank.positions[ticker]
 
         # ALPHA
         q_id = conn.quotes.getID( ticker, 'BUY', 'Alpha' )
@@ -76,13 +82,17 @@ def refresh_quotes(conn):
                 conn.quotes.addQuote( newQuote )
 
         # SELL
+        n = conn.book.how_many_sells(ticker)
         
-        lead = conn.book.nth_sell_price(ticket, 0)
-        mid = conn.book.nth_sell_price(ticket, 5)
-        tail = conn.book.nth_sell_price(ticket, 10)
+        if n == 0:
+            continue
 
-        mean_volume = conn.book.mean_sell_volume(ticket)
-        position = -conn.bank.positions[ticket]
+        lead = conn.book.nth_sell_price(ticker, 0)
+        mid = conn.book.nth_sell_price(ticker, int(math.floor(1./3*n)))
+        tail = conn.book.nth_sell_price(ticker, int(math.floor(2./3*n)))
+
+        mean_volume = conn.book.mean_sell_volume(ticker)
+        position = -conn.bank.positions[ticker]
 
         # ALPHA
         q_id = conn.quotes.getID( ticker, 'SELL', 'Alpha' )
