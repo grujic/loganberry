@@ -8,6 +8,7 @@ TIME_WHILE_OPEN=10  # in seconds
 echo 'Stopping and resetting markets...'
 eth0 close-market 10.0.129.254:${IDX+47000}
 eth0 reset-positions 10.0.129.254:${IDX+47000} LOGANBERRY
+rm main.log
 sleep 2
 
 echo 'Running main.py...'
