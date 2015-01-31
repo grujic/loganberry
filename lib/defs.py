@@ -117,7 +117,7 @@ class ExchangeConnection:
 
             self.book.update_ticker_data(ticker, buy_sell_data)
 
-        elif line_type == "":
+        elif line_type == "fill":
             # One of our orders has been filled
             pass
 
@@ -128,7 +128,8 @@ class ExchangeConnection:
 
         else:
             logger.error("Don't know how to process type = " + parsed_json['type'])
-
+            logger.error(line)
+            
     ### Lower level communications ###
     def _fromJSON(self, json_struct):
         return json.dumps(json_struct) + '\n'
