@@ -1,9 +1,18 @@
 #!/bin/bash
 
 # Script to wrap main.py, stopping the market first, restarting it, running main, then stopping the market again.
+
+# run as ./main_wrapper.sh <N seconds to run for>
+# or ./main_wrapper.sh  # for 10 seconds of live market.
 IDX=1
-TIME_UNTIL_START=10  # in seconds
-TIME_WHILE_OPEN=10  # in seconds
+
+if [ $# == 0 ]; then
+    TIME_WHILE_OPEN=10;  # in seconds
+fi
+
+if [ $# == 1 ]; then
+    TIME_WHILE_OPEN=$1;  # in seconds
+fi    
 
 echo 'Stopping and resetting ALL test markets...'
 eth0 close-market 10.0.129.254:47000
@@ -15,10 +24,13 @@ eth0 reset-positions 10.0.129.254:47002 LOGANBERRY
 rm main.log
 sleep 2
 
-echo 'Running main2.py...'
-python main2.py 10.0.129.254 $IDX &
+echo 'Running main.py...'
+python main.py 10.0.129.254 $IDX &
 
-sleep $TIME_UNTIL_START
+echo "Starting in 2..."
+sleep 1
+echo "Starting in 1..."
+sleep 1
 echo 'Opening the market...'
 eth0 open-market 10.0.129.254:47000
 eth0 open-market 10.0.129.254:47001
