@@ -22,7 +22,7 @@ eth0 reset-positions 10.0.129.254:47000 LOGANBERRY
 eth0 reset-positions 10.0.129.254:47001 LOGANBERRY
 eth0 reset-positions 10.0.129.254:47002 LOGANBERRY
 rm main.log
-sleep 2
+sleep 1
 
 echo 'Running main.py...'
 python main.py 10.0.129.254 $IDX &
