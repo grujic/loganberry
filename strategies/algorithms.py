@@ -74,8 +74,8 @@ def arbitrage_CORGE(conn):
 			conn.quotes.addQuote(quote_record)
 
 			#Sell Corge:
-			order_id = conn.addOrder("CORGE", "SELL", 0, multiplier)
-			quote_record = Quote("CORGE", "SELL", "Arb", 0, multiplier, order_id)
+			order_id = conn.addOrder("CORGE", "SELL", 1, multiplier)
+			quote_record = Quote("CORGE", "SELL", "Arb", 1, multiplier, order_id)
 			conn.quotes.addQuote(quote_record)
 
 			#Convert Corge:
@@ -96,13 +96,13 @@ def arbitrage_CORGE(conn):
 
 		if(corge_buy_price < foo_sell_price + bar_sell_price - 100):
 			#Sell Foo:
-			order_id = conn.addOrder("FOO", "SELL", 0, multiplier)
-			quote_record = Quote("FOO", "SELL", "Arb", 0, multiplier, order_id)
+			order_id = conn.addOrder("FOO", "SELL", 1, multiplier)
+			quote_record = Quote("FOO", "SELL", "Arb", 1, multiplier, order_id)
 			conn.quotes.addQuote(quote_record)
 
 			#Sell Bar:
-			order_id = conn.addOrder("BAR", "SELL", 0, multiplier)
-			quote_record = Quote("BAR", "SELL", "Arb", 0, multiplier, order_id)
+			order_id = conn.addOrder("BAR", "SELL", 1, multiplier)
+			quote_record = Quote("BAR", "SELL", "Arb", 1, multiplier, order_id)
 			conn.quotes.addQuote(quote_record)
 
 			#Buy Corge:
