@@ -100,8 +100,7 @@ class ExchangeConnection:
     def parse(self, line):
         # Workhorse function to parse lines returned
         # from server.
-        print 'Parsing line: '
-        print line
+        logger.debug('Parsing: ' + line)
         try:
             parsed_json = json.loads(line)
         except:
@@ -171,7 +170,7 @@ class ExchangeConnection:
         # Returns a JSON struct of the response
         if (False):
             # If socket is dead, get a new connection
-            print("Socket is dead, reconnecting! \n\n")
+            logger.error("Socket is dead, reconnecting! \n\n")
             self.s = self._startConnection()
 
         # Check if json_packet is already of type string:
