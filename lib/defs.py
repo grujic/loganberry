@@ -1,4 +1,4 @@
-i#mport socket
+import socket
 import json
 import logging
 from logging import handlers
@@ -187,7 +187,7 @@ class ExchangeConnection:
         return resp
 
 
-     def _readlines(self, recv_buffer=4096, delim='\n', lines_to_read=10):
+    def _readlines(self, recv_buffer=4096, delim='\n', lines_to_read=10):
         # Reads the buffer and returns *at least* line_to_read
         buffer = self._carry_over
         data = True
@@ -210,5 +210,5 @@ class ExchangeConnection:
         return
 
 
-     def _close_connection(self):
+    def _close_connection(self):
         self.s.close()
