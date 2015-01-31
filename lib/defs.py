@@ -7,6 +7,8 @@ from lib.book import Book
 from strategies.quotes_class import Quotes
 from strategies.bank_class import Bank
 
+level = logging.INFO
+
 # Set up logging: (this uses old-style formatting)
 formatStr = '[%(asctime)s]  %(levelname)-7s (%(filename)s:%(lineno)d) %(funcName)s - %(message)s'
 dateFmtStr = '%d %b %H:%M:%S'
@@ -15,12 +17,12 @@ dateFmtStr = '%d %b %H:%M:%S'
                     #level=logging.INFO)
 # create logger
 logger = logging.getLogger('loganberry')
-logger.setLevel(logging.INFO)
+logger.setLevel(level)
 
 # create console handler and set level to debug
 #ch = logging.FileHandler('test.log')
 ch = logging.StreamHandler()
-ch.setLevel(logging.INFO)
+ch.setLevel(level)
 formatter = logging.Formatter(formatStr,
                               dateFmtStr)  # create formatter
 ch.setFormatter(formatter)                # add formatter to ch
@@ -53,6 +55,7 @@ class ExchangeConnection:
         self.quotes = Quotes()
         self.next_order_id = 0
         self._carry_over = ''   # for carrying over network socket buffet
+        self.market_open = None
 
         logger.debug('Starting up.')
 
@@ -123,7 +126,7 @@ class ExchangeConnection:
             # initial data which gets sent through
             cash = parsed_json["cash"]
             self.bank.cash = cash
-            market_open = parsed_json["market_open"]
+            self.market_open = parsed_json["market_open"]
             positions = parsed_json["symbols"]
             # positions is a list of {"symbol": "FOO", "position": 400}
             self.bank.positions = {el['symbol']: el['position'] for el in positions}
