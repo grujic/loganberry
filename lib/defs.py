@@ -53,6 +53,7 @@ class ExchangeConnection:
         self.quotes = Quotes()
         self.next_order_id = 0
         self._carry_over = ''   # for carrying over network socket buffet
+        self.market_open = None
 
         logger.debug('Starting up.')
 
@@ -123,7 +124,7 @@ class ExchangeConnection:
             # initial data which gets sent through
             cash = parsed_json["cash"]
             self.bank.cash = cash
-            market_open = parsed_json["market_open"]
+            self.market_open = parsed_json["market_open"]
             positions = parsed_json["symbols"]
             # positions is a list of {"symbol": "FOO", "position": 400}
             self.bank.positions = {el['symbol']: el['position'] for el in positions}
