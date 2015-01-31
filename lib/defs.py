@@ -78,11 +78,28 @@ class ExchangeConnection:
 
     def convertOrder(self):
         # Convert an ETH to its components
-        pass
+        self.next_order_id +=1
+        
+        # Add order
+        json_struct = {
+            "type":      "convert",
+            "order_id":  self.next_order_id,
+            "symbol":    stock_ticker,
+            "dir":       dir,
+            "size":      size
+            }
+        
+        self._send(json_struct)
+        
+        return self.next_order_id
 
     def cancelOrder(self):
         # Cancel an order
-        pass
+        
+        json_struct = {
+            "type": "cancel", 
+            "order_id": order_id
+            }
 
     def sayHello(self):
         # Check connection
