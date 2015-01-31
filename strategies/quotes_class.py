@@ -1,16 +1,16 @@
 class Quote:
-	# Class to keep track of current outstanding quotes
+    # Class to keep track of current outstanding quotes
 
-	def __init__(self, ticker, direction, quote_type, price, size, quote_id):
-		self.ticker = ticker
-		self.direction = direction
-		self.quote_type = quote_type
-		self.size = size
-		self.price = price
-		self.quote_id = quote_id
+    def __init__(self, ticker, direction, quote_type, price, size, quote_id):
+        self.ticker = ticker
+        self.direction = direction
+        self.quote_type = quote_type
+        self.size = size
+        self.price = price
+        self.quote_id = quote_id
 
-	def printQuote(self):
-		print self.ticker + " | " + self.direction + " | " + self.quote_type + " | " + str(self.size) + " | " + str(self.price) + " | " + str(self.quote_id)
+    def printQuote(self):
+        print self.ticker + " | " + self.direction + " | " + self.quote_type + " | " + str(self.size) + " | " + str(self.price) + " | " + str(self.quote_id)
 
 
 class Quotes:
@@ -38,13 +38,13 @@ class Quotes:
         else: 
             return matches[0].price
 
-	def acknowledgeQuote(self, quote_id):
-		pass
+    def acknowledgeQuote(self, quote_id):
+        pass
 
-	def printQuotes(self):
-		print " Ticker | Direction | Quote Type | Size | Price | Quote ID "
+    def printQuotes(self):
+        print " Ticker | Direction | Quote Type | Size | Price | Quote ID "
 
-		for quote in self.quotes:
-			quote.printQuote()
+        for quote in self.quotes:
+            quote.printQuote()
 
 
