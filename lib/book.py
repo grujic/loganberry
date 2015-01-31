@@ -17,10 +17,20 @@ class Book:
         return self.data[ticker]
 
     def get_ticker_buy_data(self, ticker):
-        return self.data[ticker].get('buy', [])
+        buy_data = self.data[ticker].get('buy', [])
+
+        if len(buy_data) ==0 :
+            return -1
+        else:
+            return sorted(buy_data, key = lambda x: x[0])
 
     def get_ticker_sell_data(self, ticker):
-        return self.data[ticker].get('sell', [])
+        sell_data = self.data[ticker].get('sell', [])
+
+        if len(sell_data) ==0 :
+            return -1
+        else:
+            return sorted(sell_data, key = lambda x: x[0])
 
     def get_ticker_buy_prices(self, ticker):
         return [el[0] for el in self.data[ticker]['buy']]
@@ -84,10 +94,6 @@ class Book:
         
         print sell_data
 
-        sorted(sell_data, key = lambda x: x[0])[-1]
-
-        print sell_data
-
         for quote in sell_data:
             price = quote[0]
             size = quote[1]
@@ -106,16 +112,12 @@ class Book:
 
     def get_vwap_buy_price(self, ticker, shares):
         print ticker + ":"
-        
+
         vwap = 0
         need_to_sell = shares
 
         buy_data = self.get_ticker_buy_data(ticker)
         
-        print buy_data
-
-        sorted(buy_data, key = lambda x: x[0])[0]
-
         print buy_data
 
         for quote in buy_data:
