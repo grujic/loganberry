@@ -58,9 +58,9 @@ class ExchangeConnection:
             "size": size \
         }
 
-        resp = self._send_and_receive(json_struct)
+        #resp = self._send_and_receive(json_struct)
 
-        print(resp)
+        #print(resp)
 
         return self.next_order_id
 
