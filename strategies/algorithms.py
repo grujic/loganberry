@@ -13,6 +13,7 @@ def buy_everything_at_best_ask(conn):
 		best_sell_quote = conn.book.get_best_sell_quote(ticker)
 
 		print "Best sell quote for " + ticker + " is " + str(best_sell_quote)
+		print get_ticker_sell_data(ticker)
 
 		order_id = conn.addOrder(ticker, "BUY", 1.5 * best_sell_quote[0], size)
 
@@ -30,6 +31,7 @@ def sell_everything_at_best_bid(conn):
 		best_buy_quote = conn.book.get_best_buy_quote(ticker)
 
 		print "Best sell quote for " + ticker + " is " + str(best_buy_quote)
+		print get_ticker_buy_data(ticker)
 
 		order_id = conn.addOrder(ticker, "SELL", 0.5 * best_buy_quote[0], size)
 
