@@ -7,10 +7,24 @@ class ExchangeConnection:
 	def __init__(self, host='10.0.129.254', port=25000):
 		self.host = host
 		self.port = port
-
-	def addOrder(self):
+		self.s = self._startConnection()
+	
+	def addOrder(self, stock_ticker, order_id, dir, price, size):
 		# Add an order
-		pass
+		json_struct = { \
+			"type": "add", \
+			"order_id": order_id, \
+			"symbol": stock_ticker, \
+			"dir": dir, \
+			"price": price, \
+			"size": size \
+		}
+
+		resp = self._send_and_receive(json_struct)
+
+		print(resp)
+
+		return resp
 
 	def convertOrder(self):
 		# Convert an ETH to its components
@@ -23,17 +37,13 @@ class ExchangeConnection:
 	def sayHello(self):
 		# Check connection
 		### TEMP ###
-		s = self._startConnection()
-		
 		ehlo = {"type": "hello", "team": "LOGANBERRY"}
 
-		send_str = self._fromJSON(ehlo)
-
-		s.send(send_str)
-		resp = s.recv(1024)
-		s.close()
+		resp = self._send_and_receive(ehlo)
 
 		print resp
+
+		return resp
 
 	### Lower level communications ###
 	def _fromJSON(self, json_struct):
@@ -48,7 +58,10 @@ class ExchangeConnection:
 	def _send_and_receive(self, json_packet):
 		# General function for sending some JSON
 		# Returns a JSON struct of the response
-		s = self._startConnection()
+		if (False):
+			# If socket is dead, get a new connection
+			print("Socket is dead, reconnecting! \n\n")
+			self.s = self._startConnection()
 
 		# Check if json_packet is already of type string:
 		if type(json_packet) == str:
