@@ -13,7 +13,13 @@ class Bank:
 		}
 
 	def update(self, ticker, price, size, direction):
-		vwap = ( self.prices[ticker] * self.positions[ticker] + size * price ) / (self.positions[ticker] + size)
+		if (direction == "BUY"):
+			dir_integer = 1
+		else
+			dir_integer = -1
+		
+		cash += dir_integer * size * price
+		vwap = ( self.prices[ticker] * self.positions[ticker] + dir_integer * size * price ) / (self.positions[ticker] + dir_integer * size)
 
 		self.prices[ticker] = vwap
 		self.positions[ticker] += size
