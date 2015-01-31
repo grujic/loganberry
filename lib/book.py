@@ -113,7 +113,7 @@ class Book:
         
         print buy_data
 
-        if len(sell_data) == 0:
+        if len(buy_data) == 0:
         	return 0
 
         for quote in buy_data:
