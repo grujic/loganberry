@@ -1,12 +1,37 @@
 import socket
 import json
+import logging
+from logging import handlers
 
 from lib.book import Book
 from strategies.quotes_class import Quotes
 
-import logging
-logging.basicConfig(level=logging.DEBUG)
-#logger = logging.getLogger('loganberry')
+formatStr = '[%(asctime)s]  %(levelname)-7s (%(filename)s:%(lineno)d) %(funcName)s - %(message)s'
+dateFmtStr = '%d %b %H:%M:%S'
+#logging.basicConfig(format=formatStr, 
+                    #datefmt='%d %b %H:%M:%S', 
+                    #level=logging.INFO)
+# create logger
+logger = logging.getLogger('loganberry')
+logger.setLevel(logging.DEBUG)
+
+# create console handler and set level to debug
+#ch = logging.FileHandler('test.log')
+#ch = logging.StreamHandler()
+#ch.setLevel(logging.DEBUG)
+#formatter = logging.Formatter(formatStr,
+                              #dateFmtStr)  # create formatter
+#ch.setFormatter(formatter)                # add formatter to ch
+
+#fh = handlers.TimedRotatingFileHandler('main.log',
+                                                #when='midnight',
+                                                #backupCount=7)
+#fh.setLevel(logging.INFO)
+#fh.setFormatter(formatter)                # add formatter to ch
+
+#rootlogger = logging.getLogger()
+#rootlogger.addHandler(ch)
+#rootlogger.addHandler(fh)
 
 
 class ExchangeConnection:
@@ -18,24 +43,28 @@ class ExchangeConnection:
         self.s = self._startConnection()
         self.book = Book()
         self.quotes = Quotes()
+        self.next_order_id = 0
         
         logging.debug('Starting up.')
-    
-    def addOrder(self, stock_ticker, order_id, dir, price, size):
+
+    def addOrder(self, stock_ticker, dir, price, size):
+        self.next_order_id += 1
+
         # Add an order
         json_struct = { \
             "type": "add", \
-            "order_id": order_id, \
+            "order_id": self.next_order_id, \
             "symbol": stock_ticker, \
             "dir": dir, \
             "price": price, \
             "size": size \
         }
 
-        resp = self._send_and_receive(json_struct)
-        logging.debug('resp: ' + resp)
+        #resp = self._send_and_receive(json_struct)
 
-        return resp
+        #print(resp)
+
+        return self.next_order_id
 
     def convertOrder(self):
         # Convert an ETH to its components
@@ -111,8 +140,6 @@ class ExchangeConnection:
             send_str = self._fromJSON(json_packet)
 
         self.s.send(send_str)
-        
-        
 
     def _send_and_receive(self, json_packet):
         # General function for sending some JSON
